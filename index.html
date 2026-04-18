@@ -27,11 +27,8 @@
   --shadow: 0 0 0 1px var(--line);
   --r: 14px;
 }
-
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-
 html { scroll-behavior: smooth; }
-
 body {
   background: var(--ink);
   color: var(--white);
@@ -42,8 +39,6 @@ body {
   overflow-x: hidden;
   cursor: default;
 }
-
-/* GRAIN OVERLAY */
 body::before {
   content: '';
   position: fixed;
@@ -53,747 +48,182 @@ body::before {
   z-index: 9999;
   opacity: 0.4;
 }
-
-/* AMBIENT GLOW */
-.ambient {
-  position: fixed;
-  width: 600px; height: 600px;
-  border-radius: 50%;
-  filter: blur(120px);
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.12;
-}
+.ambient { position: fixed; width: 600px; height: 600px; border-radius: 50%; filter: blur(120px); pointer-events: none; z-index: 0; opacity: 0.12; }
 .ambient-1 { background: var(--gold); top: -200px; right: -100px; }
 .ambient-2 { background: var(--emerald); bottom: -200px; left: -100px; opacity: 0.06; }
-
-/* LAYOUT */
-.shell {
-  display: grid;
-  grid-template-columns: 72px 1fr;
-  min-height: 100vh;
-  position: relative;
-  z-index: 1;
-}
-
-/* SIDEBAR */
-.sidebar {
-  position: fixed;
-  top: 0; left: 0;
-  width: 72px;
-  height: 100vh;
-  background: var(--ink2);
-  border-right: 1px solid var(--line);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 24px 0;
-  z-index: 100;
-  gap: 8px;
-}
-
-.brand-mark {
-  width: 40px; height: 40px;
-  background: var(--gold);
-  border-radius: 10px;
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'Syne', sans-serif;
-  font-weight: 800;
-  font-size: 14px;
-  color: var(--ink);
-  letter-spacing: -0.5px;
-  margin-bottom: 16px;
-  flex-shrink: 0;
-  box-shadow: 0 0 24px rgba(232,224,0,0.3);
-}
-
-.nav-divider {
-  width: 32px; height: 1px;
-  background: var(--line);
-  margin: 8px 0;
-}
-
-.nav-item {
-  width: 44px; height: 44px;
-  border-radius: 12px;
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.4,0,0.2,1);
-  position: relative;
-  font-size: 18px;
-  color: var(--mist);
-  border: 1px solid transparent;
-  flex-shrink: 0;
-}
-.nav-item:hover {
-  background: var(--ghost);
-  color: var(--white);
-  border-color: var(--line);
-}
-.nav-item.active {
-  background: var(--gold-dim);
-  color: var(--gold);
-  border-color: rgba(232,224,0,0.2);
-  box-shadow: 0 0 16px rgba(232,224,0,0.1);
-}
-.nav-item .tooltip {
-  position: absolute;
-  left: 56px;
-  background: var(--ink3);
-  border: 1px solid var(--line2);
-  color: var(--white);
-  font-size: 11px;
-  padding: 6px 10px;
-  border-radius: 8px;
-  white-space: nowrap;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.2s;
-  letter-spacing: 0.5px;
-}
+.shell { display: grid; grid-template-columns: 72px 1fr; min-height: 100vh; position: relative; z-index: 1; }
+.sidebar { position: fixed; top: 0; left: 0; width: 72px; height: 100vh; background: var(--ink2); border-right: 1px solid var(--line); display: flex; flex-direction: column; align-items: center; padding: 24px 0; z-index: 100; gap: 8px; }
+.brand-mark { width: 40px; height: 40px; background: var(--gold); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-weight: 800; font-size: 14px; color: var(--ink); letter-spacing: -0.5px; margin-bottom: 16px; flex-shrink: 0; box-shadow: 0 0 24px rgba(232,224,0,0.3); }
+.nav-divider { width: 32px; height: 1px; background: var(--line); margin: 8px 0; }
+.nav-item { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s cubic-bezier(0.4,0,0.2,1); position: relative; font-size: 18px; color: var(--mist); border: 1px solid transparent; flex-shrink: 0; }
+.nav-item:hover { background: var(--ghost); color: var(--white); border-color: var(--line); }
+.nav-item.active { background: var(--gold-dim); color: var(--gold); border-color: rgba(232,224,0,0.2); box-shadow: 0 0 16px rgba(232,224,0,0.1); }
+.nav-item .tooltip { position: absolute; left: 56px; background: var(--ink3); border: 1px solid var(--line2); color: var(--white); font-size: 11px; padding: 6px 10px; border-radius: 8px; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.2s; letter-spacing: 0.5px; }
 .nav-item:hover .tooltip { opacity: 1; }
-
 .nav-bottom { margin-top: auto; }
-
-/* MAIN CONTENT */
-.main {
-  margin-left: 72px;
-  min-height: 100vh;
-}
-
-/* TOPBAR */
-.topbar {
-  position: sticky; top: 0; z-index: 50;
-  height: 60px;
-  background: rgba(6,6,10,0.85);
-  backdrop-filter: blur(20px) saturate(180%);
-  border-bottom: 1px solid var(--line);
-  display: flex; align-items: center;
-  padding: 0 32px;
-  gap: 24px;
-}
-.topbar-title {
-  font-family: 'Syne', sans-serif;
-  font-weight: 700;
-  font-size: 15px;
-  color: var(--white);
-  letter-spacing: 0.5px;
-  flex: 1;
-}
-.topbar-badge {
-  font-size: 10px;
-  padding: 4px 10px;
-  border-radius: 20px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-}
-.badge-live {
-  background: rgba(0,229,160,0.1);
-  color: var(--emerald);
-  border: 1px solid rgba(0,229,160,0.2);
-  display: flex; align-items: center; gap: 6px;
-}
-.badge-live::before {
-  content: '';
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: var(--emerald);
-  animation: pulse 2s infinite;
-}
-@keyframes pulse {
-  0%,100% { opacity: 1; }
-  50% { opacity: 0.3; }
-}
-.topbar-time {
-  font-size: 12px;
-  color: var(--mist);
-  letter-spacing: 1px;
-}
-
-/* PAGES */
+.main { margin-left: 72px; min-height: 100vh; }
+.topbar { position: sticky; top: 0; z-index: 50; height: 60px; background: rgba(6,6,10,0.85); backdrop-filter: blur(20px) saturate(180%); border-bottom: 1px solid var(--line); display: flex; align-items: center; padding: 0 32px; gap: 24px; }
+.topbar-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 15px; color: var(--white); letter-spacing: 0.5px; flex: 1; }
+.topbar-badge { font-size: 10px; padding: 4px 10px; border-radius: 20px; letter-spacing: 1px; text-transform: uppercase; }
+.badge-live { background: rgba(0,229,160,0.1); color: var(--emerald); border: 1px solid rgba(0,229,160,0.2); display: flex; align-items: center; gap: 6px; }
+.badge-live::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--emerald); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+.topbar-time { font-size: 12px; color: var(--mist); letter-spacing: 1px; }
 .page { display: none; padding: 32px; animation: fadeUp 0.35s cubic-bezier(0.4,0,0.2,1); }
 .page.active { display: block; }
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* ─── HOME PAGE ─── */
-.home-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: auto auto auto;
-  gap: 20px;
-  margin-bottom: 24px;
-}
-
-/* HERO CARD */
-.hero-card {
-  grid-column: 1 / 3;
-  background: var(--ink2);
-  border: 1px solid var(--line);
-  border-radius: var(--r);
-  padding: 40px;
-  position: relative;
-  overflow: hidden;
-}
-.hero-card::after {
-  content: '';
-  position: absolute;
-  top: -80px; right: -80px;
-  width: 300px; height: 300px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(232,224,0,0.08) 0%, transparent 70%);
-  pointer-events: none;
-}
-.hero-eyebrow {
-  font-size: 10px;
-  color: var(--gold);
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  margin-bottom: 16px;
-  display: flex; align-items: center; gap: 8px;
-}
-.hero-eyebrow::before {
-  content: '';
-  width: 20px; height: 1px;
-  background: var(--gold);
-}
-.hero-name {
-  font-family: 'Instrument Serif', serif;
-  font-size: 72px;
-  line-height: 0.9;
-  color: var(--white);
-  margin-bottom: 6px;
-  letter-spacing: -2px;
-}
+@keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+.home-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; grid-template-rows: auto auto auto; gap: 20px; margin-bottom: 24px; }
+.hero-card { grid-column: 1 / 3; background: var(--ink2); border: 1px solid var(--line); border-radius: var(--r); padding: 40px; position: relative; overflow: hidden; }
+.hero-card::after { content: ''; position: absolute; top: -80px; right: -80px; width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(circle, rgba(232,224,0,0.08) 0%, transparent 70%); pointer-events: none; }
+.hero-eyebrow { font-size: 10px; color: var(--gold); letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+.hero-eyebrow::before { content: ''; width: 20px; height: 1px; background: var(--gold); }
+.hero-name { font-family: 'Instrument Serif', serif; font-size: 72px; line-height: 0.9; color: var(--white); margin-bottom: 6px; letter-spacing: -2px; }
 .hero-name span { color: var(--gold); font-style: italic; }
-.hero-tagline {
-  font-size: 11px;
-  color: var(--mist);
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  margin-bottom: 28px;
-}
-.hero-quote {
-  font-family: 'Instrument Serif', serif;
-  font-style: italic;
-  font-size: 16px;
-  color: var(--fog);
-  line-height: 1.7;
-  max-width: 480px;
-  padding-left: 16px;
-  border-left: 2px solid var(--gold);
-}
-
-/* STAT CARDS */
-.stat-card {
-  background: var(--ink2);
-  border: 1px solid var(--line);
-  border-radius: var(--r);
-  padding: 28px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  position: relative;
-  overflow: hidden;
-  transition: border-color 0.3s, transform 0.2s;
-}
+.hero-tagline { font-size: 11px; color: var(--mist); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 28px; }
+.hero-quote { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 16px; color: var(--fog); line-height: 1.7; max-width: 480px; padding-left: 16px; border-left: 2px solid var(--gold); }
+.stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.stat-card { background: var(--ink2); border: 1px solid var(--line); border-radius: var(--r); padding: 28px; display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden; transition: border-color 0.3s, transform 0.2s; }
 .stat-card:hover { border-color: var(--line2); transform: translateY(-2px); }
-.stat-card::before {
-  content: '';
-  position: absolute;
-  bottom: 0; left: 0;
-  width: 100%; height: 2px;
-}
+.stat-card::before { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 2px; }
 .stat-card.s-green::before { background: linear-gradient(90deg, var(--emerald), transparent); }
 .stat-card.s-red::before { background: linear-gradient(90deg, var(--crimson), transparent); }
 .stat-card.s-gold::before { background: linear-gradient(90deg, var(--gold), transparent); }
 .stat-card.s-sky::before { background: linear-gradient(90deg, var(--sky), transparent); }
-
-.stat-label {
-  font-size: 10px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--mist);
-  margin-bottom: 16px;
-}
-.stat-value {
-  font-family: 'Syne', sans-serif;
-  font-weight: 800;
-  font-size: 48px;
-  line-height: 1;
-  letter-spacing: -2px;
-}
+.stat-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--mist); margin-bottom: 16px; }
+.stat-value { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 48px; line-height: 1; letter-spacing: -2px; }
 .stat-value.green { color: var(--emerald); }
 .stat-value.red { color: var(--crimson); }
 .stat-value.gold { color: var(--gold); }
 .stat-value.white { color: var(--white); }
 .stat-sub { font-size: 10px; color: var(--ghost); margin-top: 8px; letter-spacing: 0.5px; }
-
-/* RULES SECTION */
-.rules-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-  margin-bottom: 24px;
-}
-.rule-card {
-  background: var(--ink2);
-  border: 1px solid var(--line);
-  border-radius: var(--r);
-  padding: 20px;
-  transition: all 0.25s;
-}
+.rules-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+.rule-card { background: var(--ink2); border: 1px solid var(--line); border-radius: var(--r); padding: 20px; transition: all 0.25s; }
 .rule-card:hover { border-color: var(--line2); background: var(--ink3); }
 .rule-icon { font-size: 22px; margin-bottom: 12px; }
-.rule-title {
-  font-family: 'Syne', sans-serif;
-  font-weight: 600;
-  font-size: 12px;
-  color: var(--white);
-  margin-bottom: 8px;
-  letter-spacing: 0.3px;
-}
+.rule-title { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 12px; color: var(--white); margin-bottom: 8px; letter-spacing: 0.3px; }
 .rule-desc { font-size: 11px; color: var(--mist); line-height: 1.7; }
-
-/* ─── SECTION HEADER ─── */
-.sec-header {
-  display: flex; align-items: baseline; gap: 16px;
-  margin-bottom: 24px;
-}
-.sec-title {
-  font-family: 'Syne', sans-serif;
-  font-weight: 800;
-  font-size: 22px;
-  color: var(--white);
-  letter-spacing: -0.5px;
-}
-.sec-num {
-  font-size: 10px;
-  color: var(--gold);
-  letter-spacing: 2px;
-}
+.sec-header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 24px; }
+.sec-title { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 22px; color: var(--white); letter-spacing: -0.5px; }
+.sec-num { font-size: 10px; color: var(--gold); letter-spacing: 2px; }
 .sec-line { flex: 1; height: 1px; background: var(--line); }
-
-/* ─── GUIDE PAGE ─── */
-.module-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-}
-.module-card {
-  background: var(--ink2);
-  border: 1px solid var(--line);
-  border-radius: var(--r);
-  overflow: hidden;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
-}
+.module-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.module-card { background: var(--ink2); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; cursor: pointer; transition: all 0.3s cubic-bezier(0.4,0,0.2,1); }
 .module-card:hover { border-color: rgba(232,224,0,0.25); transform: translateY(-3px); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
 .module-card.open { border-color: rgba(232,224,0,0.3); }
-.module-head {
-  padding: 24px;
-  display: flex; align-items: flex-start; justify-content: space-between;
-}
-.module-meta {}
+.module-head { padding: 24px; display: flex; align-items: flex-start; justify-content: space-between; }
 .module-num { font-size: 10px; color: var(--gold); letter-spacing: 2px; margin-bottom: 8px; }
 .module-icon { font-size: 28px; margin-bottom: 10px; display: block; }
-.module-title {
-  font-family: 'Syne', sans-serif;
-  font-weight: 600;
-  font-size: 14px;
-  color: var(--white);
-  margin-bottom: 6px;
-}
+.module-title { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 14px; color: var(--white); margin-bottom: 6px; }
 .module-preview { font-size: 11px; color: var(--mist); line-height: 1.6; }
-.module-toggle {
-  width: 28px; height: 28px;
-  border-radius: 50%;
-  background: var(--ghost);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 10px;
-  color: var(--mist);
-  flex-shrink: 0;
-  transition: all 0.3s;
-}
+.module-toggle { width: 28px; height: 28px; border-radius: 50%; background: var(--ghost); display: flex; align-items: center; justify-content: center; font-size: 10px; color: var(--mist); flex-shrink: 0; transition: all 0.3s; }
 .module-card.open .module-toggle { background: var(--gold-dim); color: var(--gold); transform: rotate(45deg); }
-.module-body {
-  display: none;
-  padding: 0 24px 24px;
-  font-size: 12px;
-  color: var(--fog);
-  line-height: 1.8;
-  border-top: 1px solid var(--line);
-  margin: 0 24px;
-  padding-top: 20px;
-}
+.module-body { display: none; padding: 20px 24px 24px; font-size: 12px; color: var(--fog); line-height: 1.8; border-top: 1px solid var(--line); }
 .module-card.open .module-body { display: block; }
 .module-body p { margin-bottom: 10px; }
 .module-body strong { color: var(--white); font-weight: 500; }
-
-.callout {
-  border-radius: 10px;
-  padding: 12px 16px;
-  margin: 12px 0;
-  font-size: 11px;
-  line-height: 1.7;
-  display: flex; gap: 10px; align-items: flex-start;
-}
+.callout { border-radius: 10px; padding: 12px 16px; margin: 12px 0; font-size: 11px; line-height: 1.7; display: flex; gap: 10px; align-items: flex-start; }
 .callout-gold { background: rgba(232,224,0,0.06); border: 1px solid rgba(232,224,0,0.15); color: rgba(232,224,0,0.9); }
 .callout-red { background: rgba(255,45,85,0.06); border: 1px solid rgba(255,45,85,0.15); color: rgba(255,100,120,0.9); }
 .callout-green { background: rgba(0,229,160,0.06); border: 1px solid rgba(0,229,160,0.15); color: rgba(0,229,160,0.9); }
-
-/* ─── STRATEGY PAGE ─── */
 .phase-list { display: flex; flex-direction: column; gap: 12px; }
-.phase-card {
-  background: var(--ink2);
-  border: 1px solid var(--line);
-  border-radius: var(--r);
-  overflow: hidden;
-  transition: border-color 0.25s;
-}
+.phase-card { background: var(--ink2); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; transition: border-color 0.25s; }
 .phase-card.open { border-color: rgba(232,224,0,0.2); }
-.phase-trigger {
-  display: flex; align-items: center; gap: 20px;
-  padding: 20px 24px;
-  cursor: pointer;
-  transition: background 0.2s;
-}
+.phase-trigger { display: flex; align-items: center; gap: 20px; padding: 20px 24px; cursor: pointer; transition: background 0.2s; }
 .phase-trigger:hover { background: rgba(255,255,255,0.02); }
-.phase-num-badge {
-  width: 36px; height: 36px;
-  border-radius: 10px;
-  background: var(--ghost);
-  border: 1px solid var(--line);
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'Syne', sans-serif;
-  font-weight: 700;
-  font-size: 13px;
-  color: var(--mist);
-  flex-shrink: 0;
-  transition: all 0.3s;
-}
+.phase-num-badge { width: 36px; height: 36px; border-radius: 10px; background: var(--ghost); border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 13px; color: var(--mist); flex-shrink: 0; transition: all 0.3s; }
 .phase-card.open .phase-num-badge { background: var(--gold-dim); border-color: rgba(232,224,0,0.3); color: var(--gold); }
 .phase-info { flex: 1; }
 .phase-label { font-size: 10px; color: var(--mist); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4px; }
 .phase-title { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 14px; color: var(--white); }
 .phase-tags { display: flex; gap: 6px; flex-wrap: wrap; }
-.ptag {
-  font-size: 9px;
-  padding: 3px 8px;
-  border-radius: 20px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-}
+.ptag { font-size: 9px; padding: 3px 8px; border-radius: 20px; letter-spacing: 1px; text-transform: uppercase; }
 .ptag-g { background: rgba(0,229,160,0.1); color: var(--emerald); border: 1px solid rgba(0,229,160,0.2); }
 .ptag-r { background: rgba(255,45,85,0.1); color: var(--crimson); border: 1px solid rgba(255,45,85,0.2); }
 .ptag-y { background: var(--gold-dim); color: var(--gold); border: 1px solid rgba(232,224,0,0.2); }
 .phase-chevron { font-size: 11px; color: var(--mist); transition: transform 0.3s; }
 .phase-card.open .phase-chevron { transform: rotate(180deg); color: var(--gold); }
-.phase-body {
-  display: none;
-  padding: 0 24px 24px;
-}
+.phase-body { display: none; padding: 0 24px 24px; }
 .phase-card.open .phase-body { display: block; }
 .step-list { list-style: none; display: flex; flex-direction: column; gap: 2px; }
-.step-item {
-  display: grid;
-  grid-template-columns: 48px 1fr;
-  gap: 16px;
-  padding: 14px 0;
-  border-bottom: 1px solid var(--line);
-  align-items: flex-start;
-}
+.step-item { display: grid; grid-template-columns: 52px 1fr; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--line); align-items: flex-start; }
 .step-item:last-child { border-bottom: none; }
-.step-key {
-  font-size: 9px;
-  color: var(--gold);
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  padding-top: 2px;
-  font-weight: 500;
-}
+.step-key { font-size: 9px; color: var(--gold); letter-spacing: 1.5px; text-transform: uppercase; padding-top: 2px; font-weight: 500; }
 .step-val { font-size: 12px; color: var(--fog); line-height: 1.7; }
 .step-val strong { color: var(--white); font-weight: 500; }
-
-/* ─── JOURNAL PAGE ─── */
-.journal-layout {
-  display: grid;
-  grid-template-columns: 380px 1fr;
-  gap: 24px;
-  align-items: flex-start;
-}
-.journal-form-wrap {
-  background: var(--ink2);
-  border: 1px solid var(--line);
-  border-radius: var(--r);
-  padding: 28px;
-  position: sticky;
-  top: 92px;
-}
-.form-label {
-  font-size: 9px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--mist);
-  margin-bottom: 8px;
-  display: block;
-}
-.form-title {
-  font-family: 'Syne', sans-serif;
-  font-weight: 700;
-  font-size: 16px;
-  color: var(--white);
-  margin-bottom: 24px;
-  letter-spacing: -0.3px;
-}
+.journal-layout { display: grid; grid-template-columns: 380px 1fr; gap: 24px; align-items: flex-start; }
+.journal-form-wrap { background: var(--ink2); border: 1px solid var(--line); border-radius: var(--r); padding: 28px; position: sticky; top: 92px; }
+.form-label { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--mist); margin-bottom: 8px; display: block; }
+.form-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 16px; color: var(--white); margin-bottom: 24px; letter-spacing: -0.3px; }
 .field-group { margin-bottom: 16px; }
 .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
 .field-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 16px; }
-
-input[type=text], input[type=date], input[type=number], select, textarea {
-  width: 100%;
-  background: var(--ink3);
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  padding: 11px 14px;
-  color: var(--white);
-  font-family: 'DM Mono', monospace;
-  font-size: 12px;
-  outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s;
-  appearance: none;
-}
-input:focus, select:focus, textarea:focus {
-  border-color: rgba(232,224,0,0.4);
-  box-shadow: 0 0 0 3px rgba(232,224,0,0.06);
-}
+input[type=text], input[type=date], input[type=number], select, textarea { width: 100%; background: var(--ink3); border: 1px solid var(--line); border-radius: 10px; padding: 11px 14px; color: var(--white); font-family: 'DM Mono', monospace; font-size: 12px; outline: none; transition: border-color 0.2s, box-shadow 0.2s; appearance: none; }
+input:focus, select:focus, textarea:focus { border-color: rgba(232,224,0,0.4); box-shadow: 0 0 0 3px rgba(232,224,0,0.06); }
 select { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='rgba(245,245,250,0.25)'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 32px; }
 select option { background: #16161F; }
 textarea { resize: vertical; min-height: 80px; }
-
-.btn-primary {
-  width: 100%;
-  padding: 13px;
-  background: var(--gold);
-  color: var(--ink);
-  border: none;
-  border-radius: 10px;
-  font-family: 'Syne', sans-serif;
-  font-weight: 700;
-  font-size: 12px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: all 0.2s;
-  margin-top: 4px;
-}
+.btn-primary { width: 100%; padding: 13px; background: var(--gold); color: var(--ink); border: none; border-radius: 10px; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; transition: all 0.2s; margin-top: 4px; }
 .btn-primary:hover { background: #fff; box-shadow: 0 8px 24px rgba(232,224,0,0.2); transform: translateY(-1px); }
-.btn-primary:active { transform: translateY(0); }
-
-/* TRADE HISTORY */
-.history-wrap {
-  background: var(--ink2);
-  border: 1px solid var(--line);
-  border-radius: var(--r);
-  overflow: hidden;
-}
-.history-head {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 20px 24px;
-  border-bottom: 1px solid var(--line);
-}
+.history-wrap { background: var(--ink2); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; }
+.history-head { display: flex; align-items: center; justify-content: space-between; padding: 20px 24px; border-bottom: 1px solid var(--line); }
 .history-title { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 14px; color: var(--white); }
 .history-count { font-size: 10px; color: var(--mist); letter-spacing: 1px; }
 .trade-table { width: 100%; border-collapse: collapse; }
-.trade-table th {
-  font-size: 9px;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--mist);
-  padding: 12px 16px;
-  text-align: left;
-  border-bottom: 1px solid var(--line);
-  font-weight: 400;
-}
-.trade-table td {
-  padding: 14px 16px;
-  border-bottom: 1px solid var(--line);
-  vertical-align: middle;
-  font-size: 12px;
-}
+.trade-table th { font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--mist); padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--line); font-weight: 400; }
+.trade-table td { padding: 14px 16px; border-bottom: 1px solid var(--line); vertical-align: middle; font-size: 12px; }
 .trade-table tr:last-child td { border-bottom: none; }
 .trade-table tr { transition: background 0.15s; }
 .trade-table tr:hover td { background: rgba(255,255,255,0.02); }
-
-.dir-badge {
-  font-size: 9px;
-  padding: 3px 8px;
-  border-radius: 6px;
-  letter-spacing: 1px;
-  font-weight: 500;
-}
+.dir-badge { font-size: 9px; padding: 3px 8px; border-radius: 6px; letter-spacing: 1px; font-weight: 500; }
 .dir-buy { background: rgba(0,229,160,0.1); color: var(--emerald); border: 1px solid rgba(0,229,160,0.2); }
 .dir-sell { background: rgba(255,45,85,0.1); color: var(--crimson); border: 1px solid rgba(255,45,85,0.2); }
-
 .pnl-val { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 14px; }
 .pnl-pos { color: var(--emerald); }
 .pnl-neg { color: var(--crimson); }
 .pnl-zero { color: var(--mist); }
-
-.out-icon { font-size: 14px; }
-.del-btn {
-  background: none; border: none;
-  color: var(--ghost);
-  cursor: pointer;
-  font-size: 14px;
-  padding: 4px 8px;
-  border-radius: 6px;
-  transition: all 0.2s;
-  font-family: 'DM Mono', monospace;
-}
+.del-btn { background: none; border: none; color: var(--ghost); cursor: pointer; font-size: 14px; padding: 4px 8px; border-radius: 6px; transition: all 0.2s; font-family: 'DM Mono', monospace; }
 .del-btn:hover { color: var(--crimson); background: rgba(255,45,85,0.08); }
-
-.empty-state {
-  padding: 60px 24px;
-  text-align: center;
-}
+.empty-state { padding: 60px 24px; text-align: center; }
 .empty-icon { font-size: 36px; margin-bottom: 12px; opacity: 0.4; }
 .empty-msg { font-size: 11px; color: var(--mist); letter-spacing: 1px; }
-
-/* ─── CHECKLIST PAGE ─── */
 .check-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-.check-section {
-  background: var(--ink2);
-  border: 1px solid var(--line);
-  border-radius: var(--r);
-  overflow: hidden;
-}
-.check-section-head {
-  padding: 18px 22px;
-  border-bottom: 1px solid var(--line);
-  display: flex; align-items: center; gap: 10px;
-}
+.check-section { background: var(--ink2); border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; }
+.check-section-head { padding: 18px 22px; border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 10px; }
 .check-section-icon { font-size: 16px; }
 .check-section-title { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 13px; color: var(--white); }
-.check-items { padding: 8px 0; }
-.check-row {
-  display: flex; align-items: center; gap: 14px;
-  padding: 13px 22px;
-  cursor: pointer;
-  transition: background 0.15s;
-  border-bottom: 1px solid var(--line);
-  user-select: none;
-}
+.check-row { display: flex; align-items: center; gap: 14px; padding: 13px 22px; cursor: pointer; transition: background 0.15s; border-bottom: 1px solid var(--line); user-select: none; }
 .check-row:last-child { border-bottom: none; }
 .check-row:hover { background: rgba(255,255,255,0.02); }
-.check-box {
-  width: 20px; height: 20px;
-  border-radius: 6px;
-  border: 1.5px solid var(--line2);
-  flex-shrink: 0;
-  display: flex; align-items: center; justify-content: center;
-  transition: all 0.2s;
-  font-size: 11px;
-}
-.check-row.ticked .check-box {
-  background: var(--gold);
-  border-color: var(--gold);
-  color: var(--ink);
-  box-shadow: 0 0 10px rgba(232,224,0,0.25);
-}
+.check-box { width: 20px; height: 20px; border-radius: 6px; border: 1.5px solid var(--line2); flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.2s; font-size: 11px; }
+.check-row.ticked .check-box { background: var(--gold); border-color: var(--gold); color: var(--ink); box-shadow: 0 0 10px rgba(232,224,0,0.25); }
 .check-row.ticked .check-txt { color: var(--mist); text-decoration: line-through; }
 .check-txt { font-size: 12px; color: var(--fog); line-height: 1.5; }
-
-.check-footer {
-  display: flex; justify-content: center;
-  margin-top: 24px;
-}
-.btn-reset {
-  padding: 10px 24px;
-  background: transparent;
-  border: 1px solid var(--line2);
-  border-radius: 8px;
-  color: var(--mist);
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 1px;
-  cursor: pointer;
-  transition: all 0.2s;
-}
+.check-footer { display: flex; justify-content: center; margin-top: 24px; }
+.btn-reset { padding: 10px 24px; background: transparent; border: 1px solid var(--line2); border-radius: 8px; color: var(--mist); font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 1px; cursor: pointer; transition: all 0.2s; }
 .btn-reset:hover { border-color: var(--crimson); color: var(--crimson); }
-
-/* ─── ROADMAP PAGE ─── */
 .roadmap-wrap { max-width: 680px; }
-.rm-item {
-  display: flex;
-  gap: 0;
-  position: relative;
-}
-.rm-spine {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 48px;
-  flex-shrink: 0;
-}
-.rm-dot {
-  width: 14px; height: 14px;
-  border-radius: 50%;
-  background: var(--ink4);
-  border: 2px solid var(--line2);
-  flex-shrink: 0;
-  margin-top: 20px;
-  cursor: pointer;
-  transition: all 0.3s;
-  position: relative;
-  z-index: 2;
-}
+.rm-item { display: flex; gap: 0; position: relative; }
+.rm-spine { display: flex; flex-direction: column; align-items: center; width: 48px; flex-shrink: 0; }
+.rm-dot { width: 14px; height: 14px; border-radius: 50%; background: var(--ink4); border: 2px solid var(--line2); flex-shrink: 0; margin-top: 20px; cursor: pointer; transition: all 0.3s; position: relative; z-index: 2; }
 .rm-dot:hover { transform: scale(1.3); }
 .rm-dot.done { background: var(--emerald); border-color: var(--emerald); box-shadow: 0 0 12px rgba(0,229,160,0.4); }
 .rm-dot.now { background: var(--gold); border-color: var(--gold); box-shadow: 0 0 16px rgba(232,224,0,0.5); animation: glow 2s ease-in-out infinite; }
 @keyframes glow { 0%,100% { box-shadow: 0 0 16px rgba(232,224,0,0.5); } 50% { box-shadow: 0 0 28px rgba(232,224,0,0.8); } }
-.rm-line {
-  width: 2px;
-  flex: 1;
-  background: var(--line);
-  min-height: 32px;
-}
+.rm-line { width: 2px; flex: 1; background: var(--line); min-height: 32px; }
 .rm-line.filled { background: linear-gradient(to bottom, var(--emerald), var(--line)); }
-.rm-card {
-  flex: 1;
-  background: var(--ink2);
-  border: 1px solid var(--line);
-  border-radius: var(--r);
-  padding: 20px 24px;
-  margin-bottom: 12px;
-  transition: all 0.3s;
-  margin-left: 0;
-}
+.rm-card { flex: 1; background: var(--ink2); border: 1px solid var(--line); border-radius: var(--r); padding: 20px 24px; margin-bottom: 12px; transition: all 0.3s; }
 .rm-card.active-card { border-color: rgba(232,224,0,0.25); box-shadow: 0 0 24px rgba(232,224,0,0.05); }
 .rm-card.done-card { opacity: 0.6; }
 .rm-phase { font-size: 9px; color: var(--gold); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 6px; }
 .rm-title { font-family: 'Syne', sans-serif; font-weight: 600; font-size: 15px; color: var(--white); margin-bottom: 8px; }
 .rm-desc { font-size: 11px; color: var(--mist); line-height: 1.8; }
-.rm-status {
-  display: inline-flex; align-items: center; gap: 6px;
-  font-size: 9px;
-  margin-top: 10px;
-  padding: 4px 10px;
-  border-radius: 20px;
-  letter-spacing: 1px;
-}
+.rm-status { display: inline-flex; align-items: center; gap: 6px; font-size: 9px; margin-top: 10px; padding: 4px 10px; border-radius: 20px; letter-spacing: 1px; }
 .rm-status.s-done { background: rgba(0,229,160,0.1); color: var(--emerald); border: 1px solid rgba(0,229,160,0.2); }
 .rm-status.s-now { background: var(--gold-dim); color: var(--gold); border: 1px solid rgba(232,224,0,0.2); }
 .rm-status.s-pend { background: var(--ghost); color: var(--mist); border: 1px solid var(--line); }
-
-/* ─── SCROLLBAR ─── */
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--line2); border-radius: 2px; }
-
-/* ─── RESPONSIVE ─── */
 @media (max-width: 900px) {
   .shell { grid-template-columns: 1fr; }
   .sidebar { width: 100%; height: 56px; flex-direction: row; padding: 0 16px; position: fixed; bottom: 0; top: auto; border-right: none; border-top: 1px solid var(--line); z-index: 200; gap: 0; justify-content: space-around; }
@@ -826,783 +256,326 @@ textarea { resize: vertical; min-height: 80px; }
 </style>
 </head>
 <body>
-
 <div class="ambient ambient-1"></div>
 <div class="ambient ambient-2"></div>
-
 <div class="shell">
-
-  <!-- SIDEBAR -->
-  <aside class="sidebar">
-    <div class="brand-mark">AT</div>
-
-    <div class="nav-item active" onclick="nav('home',this)" title="Home">
-      ◈
-      <span class="tooltip">Dashboard</span>
+<aside class="sidebar">
+  <div class="brand-mark">AT</div>
+  <div class="nav-item active" onclick="nav('home',this)">◈<span class="tooltip">Dashboard</span></div>
+  <div class="nav-item" onclick="nav('guide',this)">⬡<span class="tooltip">Guide</span></div>
+  <div class="nav-item" onclick="nav('strategy',this)">◆<span class="tooltip">Stratégie</span></div>
+  <div class="nav-divider"></div>
+  <div class="nav-item" onclick="nav('journal',this)">▣<span class="tooltip">Journal</span></div>
+  <div class="nav-item" onclick="nav('checklist',this)">◉<span class="tooltip">Checklist</span></div>
+  <div class="nav-item nav-bottom" onclick="nav('roadmap',this)">◎<span class="tooltip">Roadmap</span></div>
+</aside>
+<div class="main">
+<div class="topbar">
+  <div class="topbar-title" id="topbar-title">Dashboard</div>
+  <div class="topbar-badge badge-live">En direct</div>
+  <div class="topbar-time" id="live-clock">—</div>
+</div>
+<div id="page-home" class="page active">
+  <div class="home-grid">
+    <div class="hero-card">
+      <div class="hero-eyebrow">Jayson · AVRE Trading</div>
+      <div class="hero-name">Flow &<br><span>Power.</span></div>
+      <div class="hero-tagline">Discipline · Patience · Consistance</div>
+      <div class="hero-quote">"Le marché récompense ceux qui attendent. La richesse se construit dans la répétition disciplinée de bons setups — pas dans la chance."</div>
     </div>
-    <div class="nav-item" onclick="nav('guide',this)">
-      ⬡
-      <span class="tooltip">Guide</span>
+    <div class="stats-grid">
+      <div class="stat-card s-green"><div class="stat-label">Trades gagnants</div><div class="stat-value green" id="stat-wins">0</div><div class="stat-sub">TOTAL WIN</div></div>
+      <div class="stat-card s-red"><div class="stat-label">Trades perdants</div><div class="stat-value red" id="stat-losses">0</div><div class="stat-sub">TOTAL LOSS</div></div>
+      <div class="stat-card s-gold"><div class="stat-label">Win Rate</div><div class="stat-value gold" id="stat-winrate">—</div><div class="stat-sub">CONSISTANCE</div></div>
+      <div class="stat-card s-sky"><div class="stat-label">Total trades</div><div class="stat-value white" id="stat-total">0</div><div class="stat-sub">EXPÉRIENCE</div></div>
     </div>
-    <div class="nav-item" onclick="nav('strategy',this)">
-      ◆
-      <span class="tooltip">Stratégie</span>
+  </div>
+  <div class="sec-header"><div class="sec-num">01</div><div class="sec-title">Règles d'or</div><div class="sec-line"></div></div>
+  <div class="rules-grid">
+    <div class="rule-card"><div class="rule-icon">💰</div><div class="rule-title">Risque maximum 1-2%</div><div class="rule-desc">Sur 500€, c'est max 5-10€ par trade. Jamais plus. C'est ce qui te maintient en vie sur le long terme.</div></div>
+    <div class="rule-card"><div class="rule-icon">🧠</div><div class="rule-title">Zéro vengeance</div><div class="rule-desc">Après 2 pertes consécutives — ferme TradingView. Le marché sera là demain. Toi aussi, si tu restes discipliné.</div></div>
+    <div class="rule-card"><div class="rule-icon">⏰</div><div class="rule-title">Sessions actives uniquement</div><div class="rule-desc">Londres 8h-12h · New York 13h-17h. En dehors de ces fenêtres, le marché dort. Toi aussi.</div></div>
+    <div class="rule-card"><div class="rule-icon">🚫</div><div class="rule-title">Évite les news majeures</div><div class="rule-desc">NFP, FOMC, CPI — ferme tes positions avant. La volatilité extrême est imprévisible même pour les pros.</div></div>
+  </div>
+</div>
+
+<div id="page-guide" class="page">
+  <div class="sec-header"><div class="sec-num">02</div><div class="sec-title">Guide débutant</div><div class="sec-line"></div></div>
+  <div class="module-grid">
+    <div class="module-card" onclick="toggleModule(this)">
+      <div class="module-head"><div class="module-meta"><span class="module-icon">💱</span><div class="module-num">MODULE 01</div><div class="module-title">C'est quoi le Forex ?</div><div class="module-preview">Le marché des devises, 6 000 milliards/jour.</div></div><div class="module-toggle">+</div></div>
+      <div class="module-body"><p>Le Forex est le marché mondial d'échange des devises. Avec <strong>6 000 milliards de dollars</strong> échangés quotidiennement, c'est le marché le plus liquide de la planète.</p><p><strong>EUR/USD BUY</strong> = tu achètes des Euros avec des Dollars<br><strong>EUR/USD SELL</strong> = tu vends des Euros, tu achètes des Dollars</p><div class="callout callout-gold">🎯 Commence UNIQUEMENT avec EUR/USD. La paire la plus liquide, spreads faibles, patterns les plus nets.</div><p><strong>Les acteurs :</strong> Banques centrales, banques commerciales, hedge funds, et les traders retail — nous — qui représentons moins de 5% du volume total.</p></div>
     </div>
-
-    <div class="nav-divider"></div>
-
-    <div class="nav-item" onclick="nav('journal',this)">
-      ▣
-      <span class="tooltip">Journal</span>
+    <div class="module-card" onclick="toggleModule(this)">
+      <div class="module-head"><div class="module-meta"><span class="module-icon">📐</span><div class="module-num">MODULE 02</div><div class="module-title">Pips, Lots & Spread</div><div class="module-preview">Le vocabulaire fondamental du trader.</div></div><div class="module-toggle">+</div></div>
+      <div class="module-body"><p><strong>Le PIP</strong> — Plus petite unité de mouvement.<br>1.08500 → 1.08510 = 1 pip</p><p><strong>Les LOTS :</strong><br>• 1 Lot standard = 100 000 unités → 1 pip ≈ 10$<br>• 1 Mini-lot = 10 000 unités → 1 pip ≈ 1$<br>• 1 Micro-lot = 1 000 unités → 1 pip ≈ 0.10$</p><div class="callout callout-gold">🎯 En débutant, trade exclusivement en micro-lots. L'apprentissage doit coûter le moins possible.</div><p><strong>Le SPREAD</strong> — Différence entre Ask et Bid. Le coût de chaque trade. Sur EUR/USD : 1-2 pips chez un bon broker.</p></div>
     </div>
-    <div class="nav-item" onclick="nav('checklist',this)">
-      ◉
-      <span class="tooltip">Checklist</span>
+    <div class="module-card" onclick="toggleModule(this)">
+      <div class="module-head"><div class="module-meta"><span class="module-icon">⚖️</span><div class="module-num">MODULE 03</div><div class="module-title">L'effet de levier</div><div class="module-preview">L'outil qui tue — comprends-le avant tout.</div></div><div class="module-toggle">+</div></div>
+      <div class="module-body"><p>Avec 1:50, tu contrôles 50 000€ avec seulement 1 000€ sur ton compte.</p><p><strong>Exemple réel :</strong><br>Balance 1 000€ · Levier 1:50 → Position de 50 000€<br>Marché bouge 1% contre toi → perte de 500€ = <strong>50% de ta balance</strong></p><div class="callout callout-red">🚫 Le levier amplifie les pertes autant que les gains. C'est ce qui détruit 90% des débutants.</div><div class="callout callout-gold">✅ Règle absolue : 1:5 à 1:10 maximum pendant toute ta phase d'apprentissage.</div></div>
     </div>
-    <div class="nav-item nav-bottom" onclick="nav('roadmap',this)">
-      ◎
-      <span class="tooltip">Roadmap</span>
+    <div class="module-card" onclick="toggleModule(this)">
+      <div class="module-head"><div class="module-meta"><span class="module-icon">🏗️</span><div class="module-num">MODULE 04</div><div class="module-title">Structure de marché</div><div class="module-preview">Lire le marché comme un livre ouvert.</div></div><div class="module-toggle">+</div></div>
+      <div class="module-body"><p><strong>📈 UPTREND</strong> — Higher Highs (HH) + Higher Lows (HL)<br>→ On cherche UNIQUEMENT des BUY</p><p><strong>📉 DOWNTREND</strong> — Lower Lows (LL) + Lower Highs (LH)<br>→ On cherche UNIQUEMENT des SELL</p><p><strong>➡️ RANGE</strong> — Le prix oscille entre plafond et plancher.<br>→ Évite de trader ou trade uniquement les extrêmes.</p><div class="callout callout-gold">🎯 LOI FONDAMENTALE : Ne trade JAMAIS contre la tendance du timeframe supérieur.</div></div>
     </div>
-  </aside>
-
-  <!-- MAIN -->
-  <div class="main">
-
-    <!-- TOPBAR -->
-    <div class="topbar">
-      <div class="topbar-title" id="topbar-title">Dashboard</div>
-      <div class="topbar-badge badge-live">En direct</div>
-      <div class="topbar-time" id="live-clock">—</div>
+    <div class="module-card" onclick="toggleModule(this)">
+      <div class="module-head"><div class="module-meta"><span class="module-icon">🏦</span><div class="module-num">MODULE 05</div><div class="module-title">Smart Money Concepts</div><div class="module-preview">Penser et trader comme les institutions.</div></div><div class="module-toggle">+</div></div>
+      <div class="module-body"><p>Les banques ont besoin de <strong>liquidité massive</strong> pour remplir leurs ordres. Comprendre leur logique = avantage décisif.</p><p><strong>Order Blocks (OB)</strong> — Zone où une institution a placé un gros ordre. Le prix y revient souvent.</p><p><strong>Fair Value Gaps (FVG)</strong> — Trou de prix laissé par un mouvement fort. Le marché tend à combler ces gaps.</p><p><strong>Liquidity Sweeps</strong> — Le marché chasse les stops des traders retail avant d'inverser violemment.</p><div class="callout callout-green">💡 Cherche "ICT Michael Huddleston" sur YouTube pour approfondir ces concepts.</div></div>
     </div>
+    <div class="module-card" onclick="toggleModule(this)">
+      <div class="module-head"><div class="module-meta"><span class="module-icon">⏰</span><div class="module-num">MODULE 06</div><div class="module-title">Sessions & Killzones</div><div class="module-preview">Trader au bon moment — la moitié du travail.</div></div><div class="module-toggle">+</div></div>
+      <div class="module-body"><p>🌏 <strong>Tokyo</strong> 2h-11h — Volume faible, range souvent<br>💂 <strong>Londres</strong> 8h-17h — Gros mouvements, haute liquidité<br>🗽 <strong>New York</strong> 13h-22h — Continuation ou reversals forts<br>🔥 <strong>Overlap LDN/NY</strong> 13h-17h — Le moment LE PLUS volatil</p><p><strong>Killzones ICT :</strong><br>· London Open : 7h-9h Paris<br>· NY Open : 13h-15h Paris</p><div class="callout callout-gold">🎯 Si tu gères AVRE en parallèle : 7h30-9h30 ou 13h-15h. 2h de qualité valent 8h de surveillance passive.</div></div>
+    </div>
+  </div>
+</div>
 
-    <!-- ════ HOME ════ -->
-    <div id="page-home" class="page active">
-      <div class="home-grid">
-        <div class="hero-card">
-          <div class="hero-eyebrow">Jayson · AVRE Trading</div>
-          <div class="hero-name">Flow &<br><span>Power.</span></div>
-          <div class="hero-tagline">Discipline · Patience · Consistance</div>
-          <div class="hero-quote">
-            "Le marché récompense ceux qui attendent. La richesse se construit dans la répétition disciplinée de bons setups — pas dans la chance."
-          </div>
-        </div>
+<div id="page-strategy" class="page">
+  <div class="sec-header"><div class="sec-num">03</div><div class="sec-title">Stratégie compte réel</div><div class="sec-line"></div></div>
+  <div class="phase-list">
+    <div class="phase-card" onclick="togglePhase(this)">
+      <div class="phase-trigger"><div class="phase-num-badge">01</div><div class="phase-info"><div class="phase-label">Analyse</div><div class="phase-title">Top-Down Multi-Timeframe</div></div><div class="phase-tags"><span class="ptag ptag-y">DAILY</span><span class="ptag ptag-y">H4</span><span class="ptag ptag-y">H1</span></div><div class="phase-chevron">▼</div></div>
+      <div class="phase-body"><ul class="step-list"><li class="step-item"><span class="step-key">DAILY</span><span class="step-val">Ouvre EUR/USD sur le Daily. <strong>Identifie la tendance principale</strong> : uptrend, downtrend ou range ? C'est ta boussole pour la journée.</span></li><li class="step-item"><span class="step-key">H4</span><span class="step-val">Descends sur H4. Confirme la structure. <strong>Marque les Order Blocks majeurs</strong>, les FVG importants, et les zones de liquidité.</span></li><li class="step-item"><span class="step-key">H1</span><span class="step-val">C'est ton timeframe d'entrée. Attends un <strong>Break of Structure (BOS)</strong> dans la direction de la tendance supérieure.</span></li><li class="step-item"><span class="step-key">RÈGLE</span><span class="step-val"><strong>Les 3 timeframes doivent être alignés.</strong> Un seul désalignement = pas de trade.</span></li></ul><div class="callout callout-gold" style="margin-top:16px">🎯 "Trade with the trend on higher timeframes, enter on lower timeframes."</div></div>
+    </div>
+    <div class="phase-card" onclick="togglePhase(this)">
+      <div class="phase-trigger"><div class="phase-num-badge">02</div><div class="phase-info"><div class="phase-label">Entrée</div><div class="phase-title">Setup & Signal d'entrée</div></div><div class="phase-tags"><span class="ptag ptag-g">OB RETEST</span><span class="ptag ptag-g">LIQ SWEEP</span></div><div class="phase-chevron">▼</div></div>
+      <div class="phase-body"><p style="font-size:12px;color:var(--fog);margin-bottom:16px"><strong style="color:var(--white)">Setup A — Order Block Retest</strong> (le plus fiable pour débuter)</p><ul class="step-list"><li class="step-item"><span class="step-key">01</span><span class="step-val">Le prix fait un mouvement fort et impulsif dans une direction</span></li><li class="step-item"><span class="step-key">02</span><span class="step-val">Il laisse derrière lui un Order Block ou un Fair Value Gap</span></li><li class="step-item"><span class="step-key">03</span><span class="step-val">Le prix revient retester cette zone — pullback naturel</span></li><li class="step-item"><span class="step-key">04</span><span class="step-val">Tu attends une <strong>bougie de confirmation</strong> (englobante, rejet, pin bar) puis tu entres</span></li></ul><p style="font-size:12px;color:var(--fog);margin:16px 0 12px"><strong style="color:var(--white)">Setup B — Liquidity Sweep + Reversal</strong></p><ul class="step-list"><li class="step-item"><span class="step-key">01</span><span class="step-val">Le prix dépasse brièvement un high ou low récent pour chasser les stops</span></li><li class="step-item"><span class="step-key">02</span><span class="step-val">Il revient immédiatement dans la range avec une bougie forte</span></li><li class="step-item"><span class="step-key">03</span><span class="step-val">Tu entres dans la direction du rejet — le mouvement est souvent explosif</span></li></ul><div class="callout callout-gold" style="margin-top:16px">💡 Maîtrise uniquement le Setup A pendant tes 3 premiers mois.</div></div>
+    </div>
+    <div class="phase-card" onclick="togglePhase(this)">
+      <div class="phase-trigger"><div class="phase-num-badge">03</div><div class="phase-info"><div class="phase-label">Critique</div><div class="phase-title">Gestion du risque</div></div><div class="phase-tags"><span class="ptag ptag-r">RISK MGMT</span><span class="ptag ptag-r">CAPITAL</span></div><div class="phase-chevron">▼</div></div>
+      <div class="phase-body"><ul class="step-list"><li class="step-item"><span class="step-key">R%</span><span class="step-val"><strong>1% max par trade.</strong> Sur 500€ = 5€ max. Sur 1 000€ = 10€ max. Non-négociable.</span></li><li class="step-item"><span class="step-key">SL</span><span class="step-val"><strong>Stop-Loss défini AVANT l'entrée.</strong> Jamais de trade sans SL. Il se place au-delà de la structure.</span></li><li class="step-item"><span class="step-key">TP</span><span class="step-val"><strong>Minimum 1:2 Risk-Reward.</strong> SL à 10€ → TP à 20€ minimum. Vise 1:3 sur les beaux setups.</span></li><li class="step-item"><span class="step-key">DD</span><span class="step-val"><strong>-5% de drawdown journalier = arrêt immédiat.</strong> Pas de vengeance. Le marché est là demain.</span></li><li class="step-item"><span class="step-key">MAX</span><span class="step-val"><strong>2-3 trades max par jour.</strong> Le bon trader attend — il ne chasse pas le marché.</span></li></ul><div class="callout callout-gold" style="margin-top:16px">📊 <strong>Calcul taille :</strong> (Balance × 1%) ÷ (Distance SL en pips × Valeur pip)<br>Ex : 1000€ × 1% = 10€ ÷ 20 pips × 0.10€ = 5 micro-lots</div></div>
+    </div>
+    <div class="phase-card" onclick="togglePhase(this)">
+      <div class="phase-trigger"><div class="phase-num-badge">04</div><div class="phase-info"><div class="phase-label">Exécution</div><div class="phase-title">Gestion de position</div></div><div class="phase-tags"><span class="ptag ptag-g">BREAKEVEN</span><span class="ptag ptag-y">PARTIEL</span></div><div class="phase-chevron">▼</div></div>
+      <div class="phase-body"><ul class="step-list"><li class="step-item"><span class="step-key">01</span><span class="step-val"><strong>Ne touche pas au trade une fois entré.</strong> Le plan a été établi avant. Laisse le marché évoluer.</span></li><li class="step-item"><span class="step-key">BE</span><span class="step-val">Quand le trade atteint <strong>1:1 R:R</strong> en profit, déplace le SL au prix d'entrée. Tu joues gratuitement.</span></li><li class="step-item"><span class="step-key">50%</span><span class="step-val">Option avancée : ferme 50% à 1:2, laisse courir le reste avec un trailing stop.</span></li><li class="step-item"><span class="step-key">TIME</span><span class="step-val">Si après 4-6h le prix n'a pas bougé en ta direction, réévalue ton analyse.</span></li></ul><div class="callout callout-red" style="margin-top:16px">🚫 Ne déplace JAMAIS le Stop-Loss dans la mauvaise direction. C'est ainsi que les petites pertes deviennent des catastrophes.</div></div>
+    </div>
+    <div class="phase-card" onclick="togglePhase(this)">
+      <div class="phase-trigger"><div class="phase-num-badge">05</div><div class="phase-info"><div class="phase-label">Quotidien</div><div class="phase-title">Routine du trader</div></div><div class="phase-tags"><span class="ptag ptag-y">DAILY ROUTINE</span></div><div class="phase-chevron">▼</div></div>
+      <div class="phase-body"><ul class="step-list"><li class="step-item"><span class="step-key">06H00</span><span class="step-val">Analyse Daily et H4. Identifie les niveaux clés, les OB actifs et le biais du jour.</span></li><li class="step-item"><span class="step-key">07H30</span><span class="step-val">Vérifie le calendrier économique sur <strong>Forex Factory</strong>. Note les news à risque (icône rouge).</span></li><li class="step-item"><span class="step-key">08H00</span><span class="step-val">London Open. Surveille EUR/USD sur H1. Attends un setup propre — ne forces rien.</span></li><li class="step-item"><span class="step-key">13H00</span><span class="step-val">NY Open. Overlap London/NY — les meilleurs setups de la journée se forment souvent ici.</span></li><li class="step-item"><span class="step-key">17H00</span><span class="step-val">Ferme tout. La session perd en volume. Ton cerveau aussi après 10h de trading.</span></li><li class="step-item"><span class="step-key">SOIR</span><span class="step-val">Remplis le journal. Analyse tes trades. C'est là que tu progresses vraiment.</span></li></ul></div>
+    </div>
+  </div>
+</div>
 
-        <div class="stat-card s-green">
-          <div class="stat-label">Trades gagnants</div>
-          <div class="stat-value green" id="stat-wins">0</div>
-          <div class="stat-sub">TOTAL WIN</div>
-        </div>
-        <div class="stat-card s-red">
-          <div class="stat-label">Trades perdants</div>
-          <div class="stat-value red" id="stat-losses">0</div>
-          <div class="stat-sub">TOTAL LOSS</div>
-        </div>
-        <div class="stat-card s-gold">
-          <div class="stat-label">Win Rate</div>
-          <div class="stat-value gold" id="stat-winrate">—</div>
-          <div class="stat-sub">CONSISTANCE</div>
-        </div>
-        <div class="stat-card s-sky">
-          <div class="stat-label">Total trades</div>
-          <div class="stat-value white" id="stat-total">0</div>
-          <div class="stat-sub">EXPÉRIENCE</div>
-        </div>
+<div id="page-journal" class="page">
+  <div class="sec-header"><div class="sec-num">04</div><div class="sec-title">Journal de trading</div><div class="sec-line"></div></div>
+  <div class="journal-layout">
+    <div class="journal-form-wrap">
+      <div class="form-label">Nouveau trade</div>
+      <div class="form-title">Enregistrer une position</div>
+      <div class="field-row">
+        <div class="field-group"><label class="form-label">Date</label><input type="date" id="t-date"></div>
+        <div class="field-group"><label class="form-label">Paire</label><select id="t-pair"><option>EUR/USD</option><option>GBP/USD</option><option>USD/JPY</option><option>XAU/USD</option><option>USD/CHF</option><option>AUD/USD</option><option>GBP/JPY</option><option>Autre</option></select></div>
       </div>
-
-      <div class="sec-header">
-        <div class="sec-num">01</div>
-        <div class="sec-title">Règles d'or</div>
-        <div class="sec-line"></div>
+      <div class="field-row">
+        <div class="field-group"><label class="form-label">Direction</label><select id="t-dir"><option value="BUY">BUY — Long</option><option value="SELL">SELL — Short</option></select></div>
+        <div class="field-group"><label class="form-label">Session</label><select id="t-session"><option>Londres</option><option>New York</option><option>Overlap</option><option>Asie</option></select></div>
       </div>
-
-      <div class="rules-grid">
-        <div class="rule-card">
-          <div class="rule-icon">💰</div>
-          <div class="rule-title">Risque maximum 1-2%</div>
-          <div class="rule-desc">Sur 500€, c'est max 5-10€ par trade. Jamais plus. C'est ce qui te maintient en vie sur le long terme.</div>
-        </div>
-        <div class="rule-card">
-          <div class="rule-icon">🧠</div>
-          <div class="rule-title">Zéro vengeance</div>
-          <div class="rule-desc">Après 2 pertes consécutives — ferme TradingView. Le marché sera là demain. Toi aussi, si tu restes discipliné.</div>
-        </div>
-        <div class="rule-card">
-          <div class="rule-icon">⏰</div>
-          <div class="rule-title">Sessions actives uniquement</div>
-          <div class="rule-desc">Londres 8h-12h · New York 13h-17h. En dehors de ces fenêtres, le marché dort. Toi aussi.</div>
-        </div>
-        <div class="rule-card">
-          <div class="rule-icon">🚫</div>
-          <div class="rule-title">Évite les news majeures</div>
-          <div class="rule-desc">NFP, FOMC, CPI — ferme tes positions avant. La volatilité extrême est imprévisible même pour les pros.</div>
-        </div>
+      <div class="field-row-3">
+        <div class="field-group"><label class="form-label">Entrée</label><input type="number" id="t-entry" placeholder="1.08500" step="0.00001"></div>
+        <div class="field-group"><label class="form-label">Stop-Loss</label><input type="number" id="t-sl" placeholder="1.08300" step="0.00001"></div>
+        <div class="field-group"><label class="form-label">Take-Profit</label><input type="number" id="t-tp" placeholder="1.08900" step="0.00001"></div>
       </div>
+      <div class="field-row">
+        <div class="field-group"><label class="form-label">Setup</label><select id="t-setup"><option>Order Block Retest</option><option>Liquidity Sweep</option><option>FVG Fill</option><option>BOS + Retest</option><option>Support / Résistance</option><option>Autre</option></select></div>
+        <div class="field-group"><label class="form-label">Résultat (€)</label><input type="number" id="t-pnl" placeholder="+25 ou -10" step="0.01"></div>
+      </div>
+      <div class="field-row">
+        <div class="field-group"><label class="form-label">Émotion</label><select id="t-emotion"><option>😌 Calme</option><option>🤩 Enthousiaste</option><option>😰 Anxieux</option><option>😤 Frustré</option><option>😴 Fatigué</option><option>🤔 Incertain</option></select></div>
+        <div class="field-group"><label class="form-label">Issue</label><select id="t-outcome"><option value="win">✅ Gagnant</option><option value="loss">❌ Perdant</option><option value="be">➡️ Breakeven</option></select></div>
+      </div>
+      <div class="field-group" style="margin-bottom:20px"><label class="form-label">Notes & Analyse</label><textarea id="t-notes" placeholder="Analyse du setup, erreurs commises, leçons apprises..."></textarea></div>
+      <button class="btn-primary" onclick="addTrade()">+ Enregistrer le trade</button>
     </div>
-
-    <!-- ════ GUIDE ════ -->
-    <div id="page-guide" class="page">
-      <div class="sec-header">
-        <div class="sec-num">02</div>
-        <div class="sec-title">Guide débutant</div>
-        <div class="sec-line"></div>
-      </div>
-      <div class="module-grid">
-
-        <div class="module-card" onclick="toggleModule(this)">
-          <div class="module-head">
-            <div class="module-meta">
-              <span class="module-icon">💱</span>
-              <div class="module-num">MODULE 01</div>
-              <div class="module-title">C'est quoi le Forex ?</div>
-              <div class="module-preview">Le marché des devises, 6 000 milliards/jour.</div>
-            </div>
-            <div class="module-toggle">+</div>
-          </div>
-          <div class="module-body">
-            <p>Le Forex (Foreign Exchange) est le marché mondial d'échange des devises. Avec <strong>6 000 milliards de dollars</strong> échangés quotidiennement, c'est le marché le plus liquide de la planète — il ne dort jamais.</p>
-            <p>Tu achètes toujours une devise en vendant une autre :<br>
-            <strong>EUR/USD BUY</strong> = tu achètes des Euros avec des Dollars<br>
-            <strong>EUR/USD SELL</strong> = tu vends des Euros, tu achètes des Dollars</p>
-            <div class="callout callout-gold">🎯 Commence UNIQUEMENT avec EUR/USD. La paire la plus liquide, les spreads les plus faibles, les patterns les plus nets.</div>
-            <p><strong>Les acteurs :</strong> Banques centrales, banques commerciales, hedge funds, et les traders retail — nous — qui représentons moins de 5% du volume total.</p>
-          </div>
-        </div>
-
-        <div class="module-card" onclick="toggleModule(this)">
-          <div class="module-head">
-            <div class="module-meta">
-              <span class="module-icon">📐</span>
-              <div class="module-num">MODULE 02</div>
-              <div class="module-title">Pips, Lots & Spread</div>
-              <div class="module-preview">Le vocabulaire fondamental du trader.</div>
-            </div>
-            <div class="module-toggle">+</div>
-          </div>
-          <div class="module-body">
-            <p><strong>Le PIP</strong> — Plus petite unité de mouvement.<br>1.08500 → 1.08510 = 1 pip</p>
-            <p><strong>Les LOTS :</strong><br>
-            • 1 Lot standard = 100 000 unités → 1 pip ≈ 10$<br>
-            • 1 Mini-lot = 10 000 unités → 1 pip ≈ 1$<br>
-            • 1 Micro-lot = 1 000 unités → 1 pip ≈ 0.10$</p>
-            <div class="callout callout-gold">🎯 En débutant, trade exclusivement en micro-lots. L'apprentissage doit coûter le moins possible.</div>
-            <p><strong>Le SPREAD</strong> — La différence entre le prix Ask et Bid. C'est le coût de chaque trade. Sur EUR/USD : généralement 1-2 pips chez un bon broker.</p>
-          </div>
-        </div>
-
-        <div class="module-card" onclick="toggleModule(this)">
-          <div class="module-head">
-            <div class="module-meta">
-              <span class="module-icon">⚖️</span>
-              <div class="module-num">MODULE 03</div>
-              <div class="module-title">L'effet de levier</div>
-              <div class="module-preview">L'outil qui tue — comprends-le avant tout.</div>
-            </div>
-            <div class="module-toggle">+</div>
-          </div>
-          <div class="module-body">
-            <p>Le levier amplifie ta puissance d'achat. Avec 1:50, tu contrôles 50 000€ avec seulement 1 000€ sur ton compte.</p>
-            <p><strong>Exemple réel :</strong><br>
-            Balance 1 000€ · Levier 1:50 → Position de 50 000€<br>
-            Marché bouge 1% contre toi → perte de 500€ = <strong>50% de ta balance</strong></p>
-            <div class="callout callout-red">🚫 Le levier amplifie les pertes autant que les gains. C'est ce qui détruit 90% des débutants en quelques semaines.</div>
-            <div class="callout callout-gold">✅ Règle absolue : 1:5 à 1:10 maximum pendant toute ta phase d'apprentissage. La puissance vient avec la maîtrise.</div>
-          </div>
-        </div>
-
-        <div class="module-card" onclick="toggleModule(this)">
-          <div class="module-head">
-            <div class="module-meta">
-              <span class="module-icon">🏗️</span>
-              <div class="module-num">MODULE 04</div>
-              <div class="module-title">Structure de marché</div>
-              <div class="module-preview">Lire le marché comme un livre ouvert.</div>
-            </div>
-            <div class="module-toggle">+</div>
-          </div>
-          <div class="module-body">
-            <p><strong>📈 UPTREND</strong> — Higher Highs (HH) + Higher Lows (HL)<br>→ On cherche UNIQUEMENT des BUY</p>
-            <p><strong>📉 DOWNTREND</strong> — Lower Lows (LL) + Lower Highs (LH)<br>→ On cherche UNIQUEMENT des SELL</p>
-            <p><strong>➡️ RANGE</strong> — Le prix oscille entre un plafond et un plancher.<br>→ Évite de trader ou trade uniquement les extrêmes.</p>
-            <div class="callout callout-gold">🎯 LOI FONDAMENTALE : Ne trade JAMAIS contre la tendance du timeframe supérieur. Si le Daily est haussier, prends uniquement des BUY.</div>
-          </div>
-        </div>
-
-        <div class="module-card" onclick="toggleModule(this)">
-          <div class="module-head">
-            <div class="module-meta">
-              <span class="module-icon">🏦</span>
-              <div class="module-num">MODULE 05</div>
-              <div class="module-title">Smart Money Concepts</div>
-              <div class="module-preview">Penser et trader comme les institutions.</div>
-            </div>
-            <div class="module-toggle">+</div>
-          </div>
-          <div class="module-body">
-            <p>Les banques et hedge funds ne tradent pas comme nous. Ils ont besoin de <strong>liquidité massive</strong> pour remplir leurs ordres. Comprendre leur logique = avantage décisif.</p>
-            <p><strong>Order Blocks (OB)</strong> — Zone où une institution a placé un gros ordre. Dernière bougie baissière avant une forte hausse = OB haussier. Le prix y revient souvent.</p>
-            <p><strong>Fair Value Gaps (FVG)</strong> — "Trou" de prix laissé par un mouvement fort et rapide. Le marché tend à combler ces gaps avant de continuer.</p>
-            <p><strong>Liquidity Sweeps</strong> — Le marché chasse les stops des traders retail (au-dessus des highs, sous les lows) avant d'inverser violemment.</p>
-            <div class="callout callout-green">💡 Ressource : Cherche "ICT Michael Huddleston" et "Smart Money Concepts" sur YouTube pour aller plus loin.</div>
-          </div>
-        </div>
-
-        <div class="module-card" onclick="toggleModule(this)">
-          <div class="module-head">
-            <div class="module-meta">
-              <span class="module-icon">⏰</span>
-              <div class="module-num">MODULE 06</div>
-              <div class="module-title">Sessions & Killzones</div>
-              <div class="module-preview">Trader au bon moment — la moitié du travail.</div>
-            </div>
-            <div class="module-toggle">+</div>
-          </div>
-          <div class="module-body">
-            <p>🌏 <strong>Tokyo</strong> 2h-11h — Volume faible, range souvent<br>
-            💂 <strong>Londres</strong> 8h-17h — Gros mouvements, haute liquidité<br>
-            🗽 <strong>New York</strong> 13h-22h — Continuation ou reversals forts<br>
-            🔥 <strong>Overlap LDN/NY</strong> 13h-17h — Le moment LE PLUS volatil</p>
-            <p><strong>Killzones ICT :</strong><br>
-            · London Open : 7h-9h heure Paris<br>
-            · NY Open : 13h-15h heure Paris</p>
-            <div class="callout callout-gold">🎯 Si tu gères AVRE en parallèle : concentre-toi sur 7h30-9h30 (London) ou 13h-15h (NY). 2h de trading de qualité valent 8h de surveillance passive.</div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- ════ STRATEGY ════ -->
-    <div id="page-strategy" class="page">
-      <div class="sec-header">
-        <div class="sec-num">03</div>
-        <div class="sec-title">Stratégie compte réel</div>
-        <div class="sec-line"></div>
-      </div>
-      <div class="phase-list">
-
-        <div class="phase-card" onclick="togglePhase(this)">
-          <div class="phase-trigger">
-            <div class="phase-num-badge">01</div>
-            <div class="phase-info">
-              <div class="phase-label">Analyse</div>
-              <div class="phase-title">Top-Down Multi-Timeframe</div>
-            </div>
-            <div class="phase-tags">
-              <span class="ptag ptag-y">DAILY</span>
-              <span class="ptag ptag-y">H4</span>
-              <span class="ptag ptag-y">H1</span>
-            </div>
-            <div class="phase-chevron">▼</div>
-          </div>
-          <div class="phase-body">
-            <ul class="step-list">
-              <li class="step-item"><span class="step-key">DAILY</span><span class="step-val">Ouvre EUR/USD sur le Daily. <strong>Identifie la tendance principale</strong> : uptrend, downtrend ou range ? C'est ta boussole pour la journée.</span></li>
-              <li class="step-item"><span class="step-key">H4</span><span class="step-val">Descends sur H4. Confirme la structure. <strong>Marque les Order Blocks majeurs</strong>, les FVG importants, et les zones de liquidité (equal highs/lows).</span></li>
-              <li class="step-item"><span class="step-key">H1</span><span class="step-val">C'est ton timeframe d'entrée. Attends un <strong>Break of Structure (BOS)</strong> dans la direction de la tendance supérieure avant de chercher une entrée.</span></li>
-              <li class="step-item"><span class="step-key">RÈGLE</span><span class="step-val"><strong>Les 3 timeframes doivent être alignés.</strong> Daily haussier + H4 haussier + H1 en pullback sur un OB = setup valide. Un seul désalignement = pas de trade.</span></li>
-            </ul>
-            <div class="callout callout-gold" style="margin-top:16px">🎯 "Trade with the trend on higher timeframes, enter on lower timeframes." — Principe ICT fondamental.</div>
-          </div>
-        </div>
-
-        <div class="phase-card" onclick="togglePhase(this)">
-          <div class="phase-trigger">
-            <div class="phase-num-badge">02</div>
-            <div class="phase-info">
-              <div class="phase-label">Entrée</div>
-              <div class="phase-title">Setup & Signal d'entrée</div>
-            </div>
-            <div class="phase-tags">
-              <span class="ptag ptag-g">OB RETEST</span>
-              <span class="ptag ptag-g">LIQ SWEEP</span>
-            </div>
-            <div class="phase-chevron">▼</div>
-          </div>
-          <div class="phase-body">
-            <p style="font-size:12px;color:var(--fog);margin-bottom:16px"><strong style="color:var(--white)">Setup A — Order Block Retest</strong> (le plus fiable pour débuter)</p>
-            <ul class="step-list">
-              <li class="step-item"><span class="step-key">01</span><span class="step-val">Le prix fait un mouvement fort et impulsif dans une direction</span></li>
-              <li class="step-item"><span class="step-key">02</span><span class="step-val">Il laisse derrière lui un Order Block ou un Fair Value Gap</span></li>
-              <li class="step-item"><span class="step-key">03</span><span class="step-val">Le prix revient "retester" cette zone (pullback naturel)</span></li>
-              <li class="step-item"><span class="step-key">04</span><span class="step-val">Tu attends une <strong>bougie de confirmation</strong> (englobante, rejet, pin bar) puis tu entres</span></li>
-            </ul>
-            <p style="font-size:12px;color:var(--fog);margin:16px 0 12px"><strong style="color:var(--white)">Setup B — Liquidity Sweep + Reversal</strong></p>
-            <ul class="step-list">
-              <li class="step-item"><span class="step-key">01</span><span class="step-val">Le prix dépasse brièvement un high ou low récent pour "chasser" les stops</span></li>
-              <li class="step-item"><span class="step-key">02</span><span class="step-val">Il revient immédiatement dans la range avec une bougie forte</span></li>
-              <li class="step-item"><span class="step-key">03</span><span class="step-val">Tu entres dans la direction du rejet — le mouvement est souvent explosif</span></li>
-            </ul>
-            <div class="callout callout-gold" style="margin-top:16px">💡 Maîtrise uniquement le Setup A pendant tes 3 premiers mois. Un seul setup bien exécuté > dix setups mal compris.</div>
-          </div>
-        </div>
-
-        <div class="phase-card" onclick="togglePhase(this)">
-          <div class="phase-trigger">
-            <div class="phase-num-badge">03</div>
-            <div class="phase-info">
-              <div class="phase-label">Critique</div>
-              <div class="phase-title">Gestion du risque</div>
-            </div>
-            <div class="phase-tags">
-              <span class="ptag ptag-r">RISK MGMT</span>
-              <span class="ptag ptag-r">CAPITAL</span>
-            </div>
-            <div class="phase-chevron">▼</div>
-          </div>
-          <div class="phase-body">
-            <ul class="step-list">
-              <li class="step-item"><span class="step-key">R%</span><span class="step-val"><strong>1% max par trade.</strong> Sur 500€ = 5€ max de risque. Sur 1 000€ = 10€ max. C'est non-négociable.</span></li>
-              <li class="step-item"><span class="step-key">SL</span><span class="step-val"><strong>Stop-Loss défini AVANT l'entrée.</strong> Jamais de trade sans SL. Il se place au-delà de la structure : sous le low de la zone (BUY) ou au-dessus du high (SELL).</span></li>
-              <li class="step-item"><span class="step-key">TP</span><span class="step-val"><strong>Minimum 1:2 Risk-Reward.</strong> SL à 10€ → TP à 20€ minimum. Vise 1:3 sur les beaux setups. Un bon R:R compense un win rate de 40%.</span></li>
-              <li class="step-item"><span class="step-key">DD</span><span class="step-val"><strong>-5% de drawdown journalier = arrêt immédiat.</strong> Pas de vengeance. Le marché est là demain.</span></li>
-              <li class="step-item"><span class="step-key">MAX</span><span class="step-val"><strong>2-3 trades max par jour.</strong> Le bon trader attend. Il ne chasse pas le marché.</span></li>
-            </ul>
-            <div class="callout callout-gold" style="margin-top:16px">📊 <strong>Calcul de taille :</strong> (Balance × 1%) ÷ (Distance SL en pips × Valeur pip)<br>Ex : 1000€ × 1% = 10€ ÷ 20 pips × 0.10€ = 5 micro-lots</div>
-          </div>
-        </div>
-
-        <div class="phase-card" onclick="togglePhase(this)">
-          <div class="phase-trigger">
-            <div class="phase-num-badge">04</div>
-            <div class="phase-info">
-              <div class="phase-label">Exécution</div>
-              <div class="phase-title">Gestion de position</div>
-            </div>
-            <div class="phase-tags">
-              <span class="ptag ptag-g">BREAKEVEN</span>
-              <span class="ptag ptag-y">PARTIEL</span>
-            </div>
-            <div class="phase-chevron">▼</div>
-          </div>
-          <div class="phase-body">
-            <ul class="step-list">
-              <li class="step-item"><span class="step-key">01</span><span class="step-val"><strong>Ne touche pas au trade une fois entré.</strong> Le plan a été établi avant. Le marché n'a pas besoin de ton aide pour évoluer.</span></li>
-              <li class="step-item"><span class="step-key">BE</span><span class="step-val">Quand le trade atteint <strong>1:1 R:R</strong> en profit, déplace ton SL au prix d'entrée (breakeven). Tu joues gratuitement.</span></li>
-              <li class="step-item"><span class="step-key">50%</span><span class="step-val">Option avancée : ferme 50% de la position à 1:2, laisse courir le reste avec un trailing stop pour maximiser sur les tendances fortes.</span></li>
-              <li class="step-item"><span class="step-key">TIME</span><span class="step-val">Si après 4-6h le prix n'a pas évolué en ta direction, réévalue ton analyse. Un trade immobile peut signaler une erreur de lecture.</span></li>
-            </ul>
-            <div class="callout callout-red" style="margin-top:16px">🚫 Ne déplace JAMAIS le Stop-Loss dans la mauvaise direction. C'est le mécanisme #1 par lequel les petites pertes deviennent des catastrophes.</div>
-          </div>
-        </div>
-
-        <div class="phase-card" onclick="togglePhase(this)">
-          <div class="phase-trigger">
-            <div class="phase-num-badge">05</div>
-            <div class="phase-info">
-              <div class="phase-label">Quotidien</div>
-              <div class="phase-title">Routine du trader</div>
-            </div>
-            <div class="phase-tags">
-              <span class="ptag ptag-y">DAILY ROUTINE</span>
-            </div>
-            <div class="phase-chevron">▼</div>
-          </div>
-          <div class="phase-body">
-            <ul class="step-list">
-              <li class="step-item"><span class="step-key">06H00</span><span class="step-val">Analyse Daily et H4. Identifie les niveaux clés, les OB actifs et la biais du jour.</span></li>
-              <li class="step-item"><span class="step-key">07H30</span><span class="step-val">Vérifie le calendrier économique sur <strong>Forex Factory</strong>. Note les news à risque (icône rouge).</span></li>
-              <li class="step-item"><span class="step-key">08H00</span><span class="step-val">London Open. Surveille EUR/USD sur H1. Attends un setup propre — ne forces rien.</span></li>
-              <li class="step-item"><span class="step-key">13H00</span><span class="step-val">NY Open. Overlap London/NY — les meilleurs setups de la journée se forment souvent ici.</span></li>
-              <li class="step-item"><span class="step-key">17H00</span><span class="step-val">Ferme tout. La session perd en volume. Ton cerveau aussi après 10h de trading.</span></li>
-              <li class="step-item"><span class="step-key">SOIR</span><span class="step-val">Remplis le journal. Analyse tes trades. Qu'est-ce qui a fonctionné ? Qu'est-ce qui a failli ? C'est là que tu progresses vraiment.</span></li>
-            </ul>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- ════ JOURNAL ════ -->
-    <div id="page-journal" class="page">
-      <div class="sec-header">
-        <div class="sec-num">04</div>
-        <div class="sec-title">Journal de trading</div>
-        <div class="sec-line"></div>
-      </div>
-      <div class="journal-layout">
-        <div class="journal-form-wrap">
-          <div class="form-label">Nouveau trade</div>
-          <div class="form-title">Enregistrer une position</div>
-
-          <div class="field-row">
-            <div class="field-group">
-              <label class="form-label">Date</label>
-              <input type="date" id="t-date">
-            </div>
-            <div class="field-group">
-              <label class="form-label">Paire</label>
-              <select id="t-pair">
-                <option>EUR/USD</option>
-                <option>GBP/USD</option>
-                <option>USD/JPY</option>
-                <option>XAU/USD</option>
-                <option>USD/CHF</option>
-                <option>AUD/USD</option>
-                <option>GBP/JPY</option>
-                <option>Autre</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="field-row">
-            <div class="field-group">
-              <label class="form-label">Direction</label>
-              <select id="t-dir">
-                <option value="BUY">BUY — Long</option>
-                <option value="SELL">SELL — Short</option>
-              </select>
-            </div>
-            <div class="field-group">
-              <label class="form-label">Session</label>
-              <select id="t-session">
-                <option>Londres</option>
-                <option>New York</option>
-                <option>Overlap</option>
-                <option>Asie</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="field-row-3">
-            <div class="field-group">
-              <label class="form-label">Entrée</label>
-              <input type="number" id="t-entry" placeholder="1.08500" step="0.00001">
-            </div>
-            <div class="field-group">
-              <label class="form-label">Stop-Loss</label>
-              <input type="number" id="t-sl" placeholder="1.08300" step="0.00001">
-            </div>
-            <div class="field-group">
-              <label class="form-label">Take-Profit</label>
-              <input type="number" id="t-tp" placeholder="1.08900" step="0.00001">
-            </div>
-          </div>
-
-          <div class="field-row">
-            <div class="field-group">
-              <label class="form-label">Setup</label>
-              <select id="t-setup">
-                <option>Order Block Retest</option>
-                <option>Liquidity Sweep</option>
-                <option>FVG Fill</option>
-                <option>BOS + Retest</option>
-                <option>Support / Résistance</option>
-                <option>Autre</option>
-              </select>
-            </div>
-            <div class="field-group">
-              <label class="form-label">Résultat (€)</label>
-              <input type="number" id="t-pnl" placeholder="+25 ou -10" step="0.01">
-            </div>
-          </div>
-
-          <div class="field-row">
-            <div class="field-group">
-              <label class="form-label">Émotion</label>
-              <select id="t-emotion">
-                <option>😌 Calme</option>
-                <option>🤩 Enthousiaste</option>
-                <option>😰 Anxieux</option>
-                <option>😤 Frustré</option>
-                <option>😴 Fatigué</option>
-                <option>🤔 Incertain</option>
-              </select>
-            </div>
-            <div class="field-group">
-              <label class="form-label">Issue</label>
-              <select id="t-outcome">
-                <option value="win">✅ Gagnant</option>
-                <option value="loss">❌ Perdant</option>
-                <option value="be">➡️ Breakeven</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="field-group" style="margin-bottom:20px">
-            <label class="form-label">Notes & Analyse</label>
-            <textarea id="t-notes" placeholder="Analyse du setup, erreurs commises, leçons apprises..."></textarea>
-          </div>
-
-          <button class="btn-primary" onclick="addTrade()">+ Enregistrer le trade</button>
-        </div>
-
-        <div>
-          <div class="history-wrap">
-            <div class="history-head">
-              <div class="history-title">Historique</div>
-              <div class="history-count" id="trade-count">0 trade(s)</div>
-            </div>
-            <div style="overflow-x:auto">
-              <table class="trade-table">
-                <thead>
-                  <tr>
-                    <th>Date</th>
-                    <th>Paire</th>
-                    <th>Dir.</th>
-                    <th>Setup</th>
-                    <th>Session</th>
-                    <th>Émotion</th>
-                    <th>P&L</th>
-                    <th>Issue</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody id="trades-tbody">
-                  <tr>
-                    <td colspan="9">
-                      <div class="empty-state">
-                        <div class="empty-icon">📓</div>
-                        <div class="empty-msg">Ton journal est vide — place ton premier trade</div>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
+    <div>
+      <div class="history-wrap">
+        <div class="history-head"><div class="history-title">Historique</div><div class="history-count" id="trade-count">0 trade(s)</div></div>
+        <div style="overflow-x:auto">
+          <table class="trade-table">
+            <thead><tr><th>Date</th><th>Paire</th><th>Dir.</th><th>Setup</th><th>Session</th><th>Émotion</th><th>P&L</th><th>Issue</th><th></th></tr></thead>
+            <tbody id="trades-tbody"><tr><td colspan="9"><div class="empty-state"><div class="empty-icon">📓</div><div class="empty-msg">Ton journal est vide — place ton premier trade</div></div></td></tr></tbody>
+          </table>
         </div>
       </div>
     </div>
+  </div>
+</div>
 
-    <!-- ════ CHECKLIST ════ -->
-    <div id="page-checklist" class="page">
-      <div class="sec-header">
-        <div class="sec-num">05</div>
-        <div class="sec-title">Pre-trade checklist</div>
-        <div class="sec-line"></div>
-      </div>
-      <p style="font-size:12px;color:var(--mist);margin-bottom:24px;letter-spacing:0.3px">Coche chaque point avant de placer un trade. Si tu ne peux pas tout cocher — <strong style="color:var(--fog)">tu ne trades pas.</strong></p>
-
-      <div class="check-grid">
-        <div class="check-section">
-          <div class="check-section-head">
-            <span class="check-section-icon">📊</span>
-            <span class="check-section-title">Analyse de marché</span>
-          </div>
-          <div class="check-items">
-            <div class="check-row" onclick="tick(this)"><div class="check-box"></div><span class="check-txt">J'ai analysé la tendance sur le Daily</span></div>
-            <div class="check-row" onclick="tick(this)"><div class="check-box"></div><span class="check-txt">J'ai confirmé la structure sur H4</span></div>
-            <div class="check-row" onclick="tick(this)"><div class="check-box"></div><span class="check-txt">J'ai identifié les zones clés (OB, FVG, liquidité)</span></div>
-            <div class="check-row" onclick="tick(this)"><div class="check-box"></div><span class="check-txt">Mon setup est aligné avec la tendance principale</span></div>
-          </div>
-        </div>
-
-        <div class="check-section">
-          <div class="check-section-head">
-            <span class="check-section-icon">⚖️</span>
-            <span class="check-section-title">Gestion du risque</span>
-          </div>
-          <div class="check-items">
-            <div class="check-row" onclick="tick(this)"><div class="check-box"></div><span class="check-txt">Mon Stop-Loss est défini avant d'entrer</span></div>
-            <div class="check-row" onclick="tick(this)"><div class="check-box"></div><span class="check-txt">Mon risque est ≤ 1% de ma balance</span></div>
-            <div class="check-row" onclick="tick(this)"><div class="check-box"></div><span class="check-txt">Mon Take-Profit est à minimum 1:2 R:R</span></div>
-            <div class="check-row" onclick="tick(this)"><div class="check-box"></div><span class="check-txt">J'ai vérifié le calendrier économique (Forex Factory)</span></div>
-          </div>
-        </div>
-
-        <div class="check-section">
-          <div class="check-section-head">
-            <span class="check-section-icon">🧠</span>
-            <span class="check-section-title">Psychologie</span>
-          </div>
-          <div class="check-items">
-            <div class="check-row" onclick="tick(this)"><div class="check-box"></div><span class="check-txt">Je suis calme et dans un bon état mental</span></div>
-            <div class="check-row" onclick="tick(this)"><div class="check-box"></div><span class="check-txt">Je ne trade pas pour récupérer des pertes</span></div>
-            <div class="check-row" onclick="tick(this)"><div class="check-box"></div><span class="check-txt">Je n'ai pas déjà 2 pertes consécutives aujourd'hui</span></div>
-            <div class="check-row" onclick="tick(this)"><div class="check-box"></div><span class="check-txt">Je trade un SETUP — pas une impulsion émotionnelle</span></div>
-          </div>
-        </div>
-
-        <div class="check-section">
-          <div class="check-section-head">
-            <span class="check-section-icon">🎯</span>
-            <span class="check-section-title">Confirmation d'entrée</span>
-          </div>
-          <div class="check-items">
-            <div class="check-row" onclick="tick(this)"><div class="check-box"></div><span class="check-txt">J'ai une bougie de confirmation claire (rejet, englobante)</span></div>
-            <div class="check-row" onclick="tick(this)"><div class="check-box"></div><span class="check-txt">Je suis dans une killzone active (Londres ou NY)</span></div>
-            <div class="check-row" onclick="tick(this)"><div class="check-box"></div><span class="check-txt">Le Risk-Reward est favorable (≥ 1:2)</span></div>
-            <div class="check-row" onclick="tick(this)"><div class="check-box"></div><span class="check-txt">Il n'y a pas de news majeures dans les 30 prochaines minutes</span></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="check-footer">
-        <button class="btn-reset" onclick="resetChecks()">↺ &nbsp;Réinitialiser la checklist</button>
+<div id="page-checklist" class="page">
+  <div class="sec-header"><div class="sec-num">05</div><div class="sec-title">Pre-trade checklist</div><div class="sec-line"></div></div>
+  <p style="font-size:12px;color:var(--mist);margin-bottom:24px">Coche chaque point avant de placer un trade. Si tu ne peux pas tout cocher — <strong style="color:var(--fog)">tu ne trades pas.</strong></p>
+  <div class="check-grid">
+    <div class="check-section">
+      <div class="check-section-head"><span class="check-section-icon">📊</span><span class="check-section-title">Analyse de marché</span></div>
+      <div class="check-items">
+        <div class="check-row" onclick="tick(this)"><div class="check-box"></div><span class="check-txt">J'ai analysé la tendance sur le Daily</span></div>
+        <div class="check-row" onclick="tick(this)"><div class="check-box"></div><span class="check-txt">J'ai confirmé la structure sur H4</span></div>
+        <div class="check-row" onclick="tick(this)"><div class="check-box"></div><span class="check-txt">J'ai identifié les zones clés (OB, FVG, liquidité)</span></div>
+        <div class="check-row" onclick="tick(this)"><div class="check-box"></div><span class="check-txt">Mon setup est aligné avec la tendance principale</span></div>
       </div>
     </div>
-
-    <!-- ════ ROADMAP ════ -->
-    <div id="page-roadmap" class="page">
-      <div class="sec-header">
-        <div class="sec-num">06</div>
-        <div class="sec-title">Roadmap — 5 ans vers le pro</div>
-        <div class="sec-line"></div>
+    <div class="check-section">
+      <div class="check-section-head"><span class="check-section-icon">⚖️</span><span class="check-section-title">Gestion du risque</span></div>
+      <div class="check-items">
+        <div class="check-row" onclick="tick(this)"><div class="check-box"></div><span class="check-txt">Mon Stop-Loss est défini avant d'entrer</span></div>
+        <div class="check-row" onclick="tick(this)"><div class="check-box"></div><span class="check-txt">Mon risque est ≤ 1% de ma balance</span></div>
+        <div class="check-row" onclick="tick(this)"><div class="check-box"></div><span class="check-txt">Mon Take-Profit est à minimum 1:2 R:R</span></div>
+        <div class="check-row" onclick="tick(this)"><div class="check-box"></div><span class="check-txt">J'ai vérifié le calendrier économique (Forex Factory)</span></div>
       </div>
-      <p style="font-size:12px;color:var(--mist);margin-bottom:32px">Clique sur les cercles pour marquer ta progression. Chaque étape construite sur la précédente.</p>
-      <div class="roadmap-wrap" id="roadmap-container"></div>
     </div>
+    <div class="check-section">
+      <div class="check-section-head"><span class="check-section-icon">🧠</span><span class="check-section-title">Psychologie</span></div>
+      <div class="check-items">
+        <div class="check-row" onclick="tick(this)"><div class="check-box"></div><span class="check-txt">Je suis calme et dans un bon état mental</span></div>
+        <div class="check-row" onclick="tick(this)"><div class="check-box"></div><span class="check-txt">Je ne trade pas pour récupérer des pertes</span></div>
+        <div class="check-row" onclick="tick(this)"><div class="check-box"></div><span class="check-txt">Je n'ai pas déjà 2 pertes consécutives aujourd'hui</span></div>
+        <div class="check-row" onclick="tick(this)"><div class="check-box"></div><span class="check-txt">Je trade un SETUP — pas une impulsion émotionnelle</span></div>
+      </div>
+    </div>
+    <div class="check-section">
+      <div class="check-section-head"><span class="check-section-icon">🎯</span><span class="check-section-title">Confirmation d'entrée</span></div>
+      <div class="check-items">
+        <div class="check-row" onclick="tick(this)"><div class="check-box"></div><span class="check-txt">J'ai une bougie de confirmation claire (rejet, englobante)</span></div>
+        <div class="check-row" onclick="tick(this)"><div class="check-box"></div><span class="check-txt">Je suis dans une killzone active (Londres ou NY)</span></div>
+        <div class="check-row" onclick="tick(this)"><div class="check-box"></div><span class="check-txt">Le Risk-Reward est favorable (≥ 1:2)</span></div>
+        <div class="check-row" onclick="tick(this)"><div class="check-box"></div><span class="check-txt">Pas de news majeures dans les 30 prochaines minutes</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="check-footer"><button class="btn-reset" onclick="resetChecks()">↺ &nbsp;Réinitialiser la checklist</button></div>
+</div>
 
-  </div><!-- /main -->
-</div><!-- /shell -->
-
+<div id="page-roadmap" class="page">
+  <div class="sec-header"><div class="sec-num">06</div><div class="sec-title">Roadmap — 5 ans vers le pro</div><div class="sec-line"></div></div>
+  <p style="font-size:12px;color:var(--mist);margin-bottom:32px">Clique sur les cercles pour marquer ta progression.</p>
+  <div class="roadmap-wrap" id="roadmap-container"></div>
+</div>
+</div></div></div>
 <script>
-// ── CLOCK ──
-function updateClock() {
-  const now = new Date();
-  const t = now.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-  document.getElementById('live-clock').textContent = t;
-}
-updateClock();
-setInterval(updateClock, 1000);
+const pageTitles={home:'Dashboard',guide:'Guide débutant',strategy:'Stratégie',journal:'Journal de trading',checklist:'Pre-trade Checklist',roadmap:'Roadmap 5 ans'};
 
-// ── NAV ──
-const pageTitles = {
-  home: 'Dashboard',
-  guide: 'Guide débutant',
-  strategy: 'Stratégie',
-  journal: 'Journal de trading',
-  checklist: 'Pre-trade Checklist',
-  roadmap: 'Roadmap 5 ans'
-};
+function updateClock(){const n=new Date();document.getElementById('live-clock').textContent=n.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});}
+updateClock();setInterval(updateClock,1000);
 
-function nav(id, el) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-  document.getElementById('page-' + id).classList.add('active');
-  if (el) el.classList.add('active');
-  document.getElementById('topbar-title').textContent = pageTitles[id] || id;
+function nav(id,el){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  if(el)el.classList.add('active');
+  document.getElementById('topbar-title').textContent=pageTitles[id]||id;
 }
 
-// ── GUIDE ──
-function toggleModule(card) {
-  card.classList.toggle('open');
-}
+function toggleModule(card){card.classList.toggle('open');}
+function togglePhase(card){card.classList.toggle('open');}
 
-// ── STRATEGY ──
-function togglePhase(card) {
-  card.classList.toggle('open');
-}
-
-// ── CHECKLIST ──
-function tick(row) {
+function tick(row){
   row.classList.toggle('ticked');
-  if (row.classList.contains('ticked')) row.querySelector('.check-box').textContent = '✓';
-  else row.querySelector('.check-box').textContent = '';
+  row.querySelector('.check-box').textContent=row.classList.contains('ticked')?'✓':'';
 }
-function resetChecks() {
-  document.querySelectorAll('.check-row').forEach(r => {
+function resetChecks(){
+  document.querySelectorAll('.check-row').forEach(r=>{
     r.classList.remove('ticked');
-    r.querySelector('.check-box').textContent = '';
+    r.querySelector('.check-box').textContent='';
   });
 }
 
-// ── JOURNAL ──
-let trades = JSON.parse(localStorage.getItem('avre_trades') || '[]');
+let trades=JSON.parse(localStorage.getItem('avre_trades')||'[]');
 
-function setToday() {
-  const d = new Date().toISOString().split('T')[0];
-  document.getElementById('t-date').value = d;
+function setToday(){
+  document.getElementById('t-date').value=new Date().toISOString().split('T')[0];
 }
 
-function addTrade() {
-  const pnl = parseFloat(document.getElementById('t-pnl').value) || 0;
-  const trade = {
-    id: Date.now(),
-    date: document.getElementById('t-date').value || new Date().toISOString().split('T')[0],
-    pair: document.getElementById('t-pair').value,
-    direction: document.getElementById('t-dir').value,
-    entry: document.getElementById('t-entry').value,
-    sl: document.getElementById('t-sl').value,
-    tp: document.getElementById('t-tp').value,
+function addTrade(){
+  const pnl=parseFloat(document.getElementById('t-pnl').value)||0;
+  const trade={
+    id:Date.now(),
+    date:document.getElementById('t-date').value||new Date().toISOString().split('T')[0],
+    pair:document.getElementById('t-pair').value,
+    direction:document.getElementById('t-dir').value,
+    entry:document.getElementById('t-entry').value,
+    sl:document.getElementById('t-sl').value,
+    tp:document.getElementById('t-tp').value,
     pnl,
-    session: document.getElementById('t-session').value,
-    setup: document.getElementById('t-setup').value,
-    emotion: document.getElementById('t-emotion').value,
-    outcome: document.getElementById('t-outcome').value,
-    notes: document.getElementById('t-notes').value
+    session:document.getElementById('t-session').value,
+    setup:document.getElementById('t-setup').value,
+    emotion:document.getElementById('t-emotion').value,
+    outcome:document.getElementById('t-outcome').value,
+    notes:document.getElementById('t-notes').value
   };
   trades.push(trade);
-  localStorage.setItem('avre_trades', JSON.stringify(trades));
-  renderTrades();
-  updateStats();
-  clearForm();
+  localStorage.setItem('avre_trades',JSON.stringify(trades));
+  renderTrades();updateStats();clearForm();
 }
 
-function deleteTrade(id) {
-  trades = trades.filter(t => t.id !== id);
-  localStorage.setItem('avre_trades', JSON.stringify(trades));
-  renderTrades();
-  updateStats();
+function deleteTrade(id){
+  trades=trades.filter(t=>t.id!==id);
+  localStorage.setItem('avre_trades',JSON.stringify(trades));
+  renderTrades();updateStats();
 }
 
-function clearForm() {
-  ['t-entry','t-sl','t-tp','t-pnl','t-notes'].forEach(id => document.getElementById(id).value = '');
+function clearForm(){
+  ['t-entry','t-sl','t-tp','t-pnl','t-notes'].forEach(id=>document.getElementById(id).value='');
   setToday();
 }
 
-function renderTrades() {
-  const tbody = document.getElementById('trades-tbody');
-  document.getElementById('trade-count').textContent = trades.length + ' trade(s)';
-  if (!trades.length) {
-    tbody.innerHTML = `<tr><td colspan="9"><div class="empty-state"><div class="empty-icon">📓</div><div class="empty-msg">Ton journal est vide — place ton premier trade</div></div></td></tr>`;
+function renderTrades(){
+  const tbody=document.getElementById('trades-tbody');
+  document.getElementById('trade-count').textContent=trades.length+' trade(s)';
+  if(!trades.length){
+    tbody.innerHTML='<tr><td colspan="9"><div class="empty-state"><div class="empty-icon">📓</div><div class="empty-msg">Ton journal est vide — place ton premier trade</div></div></td></tr>';
     return;
   }
-  tbody.innerHTML = [...trades].reverse().map(t => {
-    const pnlClass = t.pnl > 0 ? 'pnl-pos' : t.pnl < 0 ? 'pnl-neg' : 'pnl-zero';
-    const pnlSign = t.pnl > 0 ? '+' : '';
-    const outIcon = t.outcome === 'win' ? '✅' : t.outcome === 'loss' ? '❌' : '➡️';
-    return `<tr>
+  tbody.innerHTML=[...trades].reverse().map(t=>{
+    const pc=t.pnl>0?'pnl-pos':t.pnl<0?'pnl-neg':'pnl-zero';
+    const ps=t.pnl>0?'+':'';
+    const oi=t.outcome==='win'?'✅':t.outcome==='loss'?'❌':'➡️';
+    return`<tr>
       <td style="color:var(--mist);font-size:11px;letter-spacing:0.5px">${t.date}</td>
       <td style="font-weight:500;color:var(--white)">${t.pair}</td>
-      <td><span class="dir-badge ${t.direction === 'BUY' ? 'dir-buy' : 'dir-sell'}">${t.direction}</span></td>
+      <td><span class="dir-badge ${t.direction==='BUY'?'dir-buy':'dir-sell'}">${t.direction}</span></td>
       <td style="color:var(--mist);font-size:11px">${t.setup}</td>
       <td style="color:var(--mist);font-size:11px">${t.session}</td>
       <td style="font-size:15px">${t.emotion.split(' ')[0]}</td>
-      <td><span class="pnl-val ${pnlClass}">${pnlSign}${t.pnl}€</span></td>
-      <td class="out-icon">${outIcon}</td>
+      <td><span class="pnl-val ${pc}">${ps}${t.pnl}€</span></td>
+      <td>${oi}</td>
       <td><button class="del-btn" onclick="deleteTrade(${t.id})">✕</button></td>
     </tr>`;
   }).join('');
 }
 
-function updateStats() {
-  const wins = trades.filter(t => t.outcome === 'win').length;
-  const losses = trades.filter(t => t.outcome === 'loss').length;
-  const total = trades.length;
-  document.getElementById('stat-wins').textContent = wins;
-  document.getElementById('stat-losses').textContent = losses;
-  document.getElementById('stat-winrate').textContent = total ? Math.round(wins/total*100)+'%' : '—';
-  document.getElementById('stat-total').textContent = total;
+function updateStats(){
+  const wins=trades.filter(t=>t.outcome==='win').length;
+  const losses=trades.filter(t=>t.outcome==='loss').length;
+  const total=trades.length;
+  document.getElementById('stat-wins').textContent=wins;
+  document.getElementById('stat-losses').textContent=losses;
+  document.getElementById('stat-winrate').textContent=total?Math.round(wins/total*100)+'%':'—';
+  document.getElementById('stat-total').textContent=total;
 }
 
-// ── ROADMAP ──
-const roadmapData = [
-  { phase: 'PHASE 1 — Mois 1 à 3', title: 'Fondations & Compte démo', desc: 'Maîtriser les bases : pips, lots, levier, structure de marché, sessions. Ouvrir un compte démo. Exécuter 30 trades minimum. Étudier 1 concept SMC par semaine. Suivre tes mentors quotidiennement.' },
-  { phase: 'PHASE 2 — Mois 4 à 6', title: 'Backtesting intensif', desc: 'Tester la stratégie sur données historiques via TradingView Replay. Objectif : 100 trades backtestés. Calculer win rate et R:R moyen. Affiner jusqu\'à atteindre 50%+ de consistance.' },
-  { phase: 'PHASE 3 — Mois 7 à 12', title: 'Micro-compte réel', desc: 'Ouvrir un compte réel avec 100-300€ maximum. Risque à 0.5% par trade. Appliquer la stratégie testée. Le focus est sur la discipline — pas les profits. Construire la résistance émotionnelle.' },
-  { phase: 'PHASE 4 — An 2', title: 'Consolidation & Consistance', desc: 'Viser 3-5% de rendement mensuel consistant. Augmenter le capital progressivement. Explorer les Prop Firms (FTMO, The Funded Trader). Approfondir la psychologie de trading.' },
-  { phase: 'PHASE 5 — An 3 à 4', title: 'Prop Firm Challenge', desc: 'Passer un challenge Prop Firm pour accéder à un compte financé (10k-200k$). Revenue split 80-90%. Objectif : revenus trading = revenus AVRE. Liberté financière additionnelle.' },
-  { phase: 'PHASE 6 — An 5', title: 'Trader professionnel', desc: 'Multiples comptes Prop Firms actifs. Trading comme revenu complémentaire solide à AVRE. Routine optimisée. L\'objectif n\'est pas la richesse rapide — c\'est la liberté durable et la maîtrise totale.' }
+const roadmapData=[
+  {phase:'PHASE 1 — Mois 1 à 3',title:'Fondations & Compte démo',desc:'Maîtriser les bases : pips, lots, levier, structure de marché, sessions. Ouvrir un compte démo. Exécuter 30 trades minimum. Étudier 1 concept SMC par semaine. Suivre tes mentors quotidiennement.'},
+  {phase:'PHASE 2 — Mois 4 à 6',title:'Backtesting intensif',desc:'Tester la stratégie sur données historiques via TradingView Replay. Objectif : 100 trades backtestés. Calculer win rate et R:R moyen. Affiner jusqu\'à atteindre 50%+ de consistance.'},
+  {phase:'PHASE 3 — Mois 7 à 12',title:'Micro-compte réel',desc:'Ouvrir un compte réel avec 100-300€ maximum. Risque à 0.5% par trade. Appliquer la stratégie testée. Focus sur la discipline — pas les profits. Construire la résistance émotionnelle.'},
+  {phase:'PHASE 4 — An 2',title:'Consolidation & Consistance',desc:'Viser 3-5% de rendement mensuel consistant. Augmenter le capital progressivement. Explorer les Prop Firms (FTMO, The Funded Trader). Approfondir la psychologie de trading.'},
+  {phase:'PHASE 5 — An 3 à 4',title:'Prop Firm Challenge',desc:'Passer un challenge Prop Firm pour accéder à un compte financé (10k-200k$). Revenue split 80-90%. Objectif : revenus trading = revenus AVRE. Liberté financière additionnelle.'},
+  {phase:'PHASE 6 — An 5',title:'Trader professionnel',desc:'Multiples comptes Prop Firms actifs. Trading comme revenu complémentaire solide à AVRE. Routine optimisée. L\'objectif n\'est pas la richesse rapide — c\'est la liberté durable et la maîtrise totale.'}
 ];
 
-let rmProgress = JSON.parse(localStorage.getItem('avre_roadmap') || '{"done":[],"current":0}');
+let rmProgress=JSON.parse(localStorage.getItem('avre_roadmap')||'{"done":[],"current":0}');
 
-function renderRoadmap() {
-  const c = document.getElementById('roadmap-container');
-  c.innerHTML = roadmapData.map((item, i) => {
-    const isDone = rmProgress.done.includes(i);
-    const isCurrent = rmProgress.current === i && !isDone;
-    const dotClass = isDone ? 'done' : isCurrent ? 'now' : '';
-    const lineClass = isDone ? 'filled' : '';
-    const cardClass = isDone ? 'done-card' : isCurrent ? 'active-card' : '';
-    const statusClass = isDone ? 's-done' : isCurrent ? 's-now' : 's-pend';
-    const statusText = isDone ? '✓ Complété' : isCurrent ? '◉ En cours' : '○ À venir';
-    return `
-    <div class="rm-item">
+function renderRoadmap(){
+  const c=document.getElementById('roadmap-container');
+  c.innerHTML=roadmapData.map((item,i)=>{
+    const isDone=rmProgress.done.includes(i);
+    const isCurrent=rmProgress.current===i&&!isDone;
+    const dotClass=isDone?'done':isCurrent?'now':'';
+    const lineClass=isDone?'filled':'';
+    const cardClass=isDone?'done-card':isCurrent?'active-card':'';
+    const statusClass=isDone?'s-done':isCurrent?'s-now':'s-pend';
+    const statusText=isDone?'✓ Complété':isCurrent?'◉ En cours':'○ À venir';
+    return`<div class="rm-item">
       <div class="rm-spine">
         <div class="rm-dot ${dotClass}" onclick="toggleRm(${i})"></div>
-        ${i < roadmapData.length - 1 ? `<div class="rm-line ${lineClass}"></div>` : ''}
+        ${i<roadmapData.length-1?`<div class="rm-line ${lineClass}"></div>`:''}
       </div>
       <div class="rm-card ${cardClass}">
         <div class="rm-phase">${item.phase}</div>
@@ -1614,23 +587,19 @@ function renderRoadmap() {
   }).join('');
 }
 
-function toggleRm(i) {
-  if (rmProgress.done.includes(i)) {
-    rmProgress.done = rmProgress.done.filter(d => d !== i);
-  } else {
+function toggleRm(i){
+  if(rmProgress.done.includes(i)){
+    rmProgress.done=rmProgress.done.filter(d=>d!==i);
+  }else{
     rmProgress.done.push(i);
   }
-  const maxDone = rmProgress.done.length ? Math.max(...rmProgress.done) : -1;
-  rmProgress.current = Math.min(maxDone + 1, roadmapData.length - 1);
-  localStorage.setItem('avre_roadmap', JSON.stringify(rmProgress));
+  const maxDone=rmProgress.done.length?Math.max(...rmProgress.done):-1;
+  rmProgress.current=Math.min(maxDone+1,roadmapData.length-1);
+  localStorage.setItem('avre_roadmap',JSON.stringify(rmProgress));
   renderRoadmap();
 }
 
-// ── INIT ──
-setToday();
-renderTrades();
-updateStats();
-renderRoadmap();
+setToday();renderTrades();updateStats();renderRoadmap();
 </script>
 </body>
 </html>
